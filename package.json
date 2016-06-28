@@ -10,6 +10,7 @@
   "author": "Freddie Iboy <freddieiboy@gmail.com> (http://www.simplycolor.in/)",
   "license": "MIT",
   "dependencies": {
-    "express": "4.14.0"
+    "express": "4.14.0",
+    "request": "2.72.0"
   }
 }
