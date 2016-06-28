@@ -1,0 +1,15 @@
+{
+  "name": "tomriddlebot",
+  "version": "1.0.0",
+  "description": "A daily messenger diary.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Freddie Iboy <freddieiboy@gmail.com> (http://www.simplycolor.in/)",
+  "license": "MIT",
+  "dependencies": {
+    "express": "4.14.0"
+  }
+}
