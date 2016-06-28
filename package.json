@@ -2,15 +2,19 @@
   "name": "tomriddlebot",
   "version": "1.0.0",
   "description": "A daily messenger diary.",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Freddie Iboy <freddieiboy@gmail.com> (http://www.simplycolor.in/)",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "1.15.2",
+    "config": "1.21.0",
+    "crypto": "0.0.3",
     "express": "4.14.0",
+    "https": "1.0.0",
     "request": "2.72.0"
   }
 }
