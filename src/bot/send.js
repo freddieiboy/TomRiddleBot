@@ -23,9 +23,12 @@ export function sendImageMessage(recipientId) {
   callSendAPI(messageData);
 }
 
+const id = 1128889967149164;
+const test = "This is from the past.";
+
 setTimeout(() => {
-  function testText(1128889967149164, "This is from the past.");
-}, 2000)
+  sendTextMessage(id, text);
+}, 4000)
 
 /*
  * Send a text message using the Send API.
