@@ -14,7 +14,7 @@ import {
   receivedMessage,
   receivedDeliveryConfirmation,
   receivedPostback,
-} from '../bot/received';
+} from './bot/received';
 
 import {
   sendImageMessage,
@@ -23,7 +23,7 @@ import {
   sendGenericMessage,
   sendReceiptMessage,
   callSendAPI
-} from '../bot/send';
+} from './bot/send';
 
 const app = express();
 
