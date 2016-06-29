@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon lib/server.js --exec babel-node",
     "build": "babel lib -d dist",
-    "serve": "node dist/index.js"
+    "serve": "node dist/index.js",
+    "test": "mocha --compilers js:babel-register"
   },
   "author": "Freddie Iboy <freddieiboy@gmail.com> (http://www.simplycolor.in/)",
   "license": "MIT",
@@ -19,9 +20,12 @@
     "request": "2.72.0"
   },
   "devDependencies": {
+    "assert": "1.4.1",
     "babel-cli": "6.10.1",
     "babel-preset-es2015": "6.9.0",
     "babel-preset-stage-2": "6.11.0",
+    "babel-register": "6.9.0",
+    "mocha": "2.5.3",
     "nodemon": "1.9.2"
   }
 }
