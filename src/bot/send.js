@@ -24,7 +24,7 @@ export function sendImageMessage(recipientId) {
 }
 
 const id = 1128889967149164;
-const test = "This is from the past.";
+const text = "This is from the past.";
 
 setTimeout(() => {
   sendTextMessage(id, text);
