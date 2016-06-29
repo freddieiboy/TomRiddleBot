@@ -14,15 +14,6 @@ import {
   receivedPostback,
 } from './bot/received';
 
-import {
-  sendImageMessage,
-  sendTextMessage,
-  sendButtonMessage,
-  sendGenericMessage,
-  sendReceiptMessage,
-  callSendAPI
-} from './bot/send';
-
 const app = express();
 
 app.set('port', process.env.PORT || 5000);

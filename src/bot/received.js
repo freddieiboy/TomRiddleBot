@@ -1,6 +1,15 @@
 import crypto from 'crypto';
 import config from 'config';
 
+import {
+  sendImageMessage,
+  sendTextMessage,
+  sendButtonMessage,
+  sendGenericMessage,
+  sendReceiptMessage,
+  callSendAPI
+} from './send';
+
 const APP_SECRET = (process.env.MESSENGER_APP_SECRET) ?
   process.env.MESSENGER_APP_SECRET :
   config.get('appSecret');
