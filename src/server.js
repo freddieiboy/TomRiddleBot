@@ -4,7 +4,6 @@
 import bodyParser from 'body-parser';
 import express from 'express';
 import https from 'https';
-import request from 'request'
 
 import {
   verifyRequestSignature,

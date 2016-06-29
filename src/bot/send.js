@@ -1,3 +1,5 @@
+import request from 'request'
+
 /*
  * Send a message with an using the Send API.
  *
