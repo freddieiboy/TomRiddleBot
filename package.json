@@ -4,7 +4,7 @@
   "description": "A daily messenger diary.",
   "main": "server.js",
   "scripts": {
-    "start": "npm build && node dist/server.js",
+    "start": "npm run build && node dist/server.js",
     "build": "babel src -d dist",
     "serve": "nodemon src/server.js --exec babel-node",
     "test": "mocha --compilers js:babel-register"
