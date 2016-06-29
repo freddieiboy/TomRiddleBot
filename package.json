@@ -4,9 +4,9 @@
   "description": "A daily messenger diary.",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon src/server.js --exec babel-node",
+    "start": "node dist/server.js",
     "build": "babel src -d dist",
-    "serve": "node dist/server.js",
+    "serve": "nodemon src/server.js --exec babel-node",
     "test": "mocha --compilers js:babel-register"
   },
   "author": "Freddie Iboy <freddieiboy@gmail.com> (http://www.simplycolor.in/)",
