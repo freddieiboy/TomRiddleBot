@@ -1,4 +1,5 @@
 import request from 'request'
+import PAGE_ACCESS_TOKEN from './send.js';
 
 /*
  * Send a message with an using the Send API.
