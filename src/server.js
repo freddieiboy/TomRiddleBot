@@ -11,6 +11,7 @@ import {
   receivedMessage,
   receivedDeliveryConfirmation,
   receivedPostback,
+  VALIDATION_TOKEN
 } from './bot/received';
 
 const app = express();
