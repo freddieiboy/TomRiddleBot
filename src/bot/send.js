@@ -24,7 +24,7 @@ export function sendImageMessage(recipientId) {
 }
 
 setTimeout(() => {
-  return function testText(1128889967149164, "This is from the past.");
+  function testText(1128889967149164, "This is from the past.");
 }, 2000)
 
 /*
