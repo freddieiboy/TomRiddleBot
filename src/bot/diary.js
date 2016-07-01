@@ -1,9 +1,11 @@
 import { sendTextMessage } from './send';
 
-const receiveDiary = (id, text) => {
-  if (text === 'something different') {
+export const receiveDiary = (id, text) => {
+  if (text.indexOf("love") > 0) {
     // TODO: answer back
-    sendDiary(id, text)
+    sendDiary(id, "Did you say love?");
+  } else {
+    sendDiary(id, "You didn't say love");
   }
   //NOTE: the logic will need to know what to
   // do once we receive data from the user.
@@ -25,7 +27,7 @@ const pickupLines = () => {
   //TODO: logic to choose from different lines
 }
 
-const sendDiary = (id, text) => {
+export const sendDiary = (id, text) => {
   if (defaultScheduleDiaryTimes && !userGeneratedDiaryTimes) {
     //TODO: send logic based on default diary times
     sendTextMessage(id, text)

@@ -1,5 +1,6 @@
 import crypto from 'crypto';
 import config from 'config';
+import { receiveDiary } from './diary';
 
 import {
   sendImageMessage,
@@ -141,7 +142,8 @@ export function receivedMessage(event) {
 
       default:
         //TODO: replace this with diary logic
-        sendTextMessage(senderID, messageText);
+        receiveDiary(senderID, messageText)
+        // sendTextMessage(senderID, messageText);
     }
   } else if (messageAttachments) {
     sendTextMessage(senderID, "Message with attachment received");
