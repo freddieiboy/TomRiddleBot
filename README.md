@@ -1,9 +1,9 @@
 # Tom Riddle bot
-## A conversational Diary
+A conversational Diary
 
 ### Start bot dev
   - Serve it on node locally
-    `npm run serve`
+      `npm run serve`
   - Run mocha tests
     `npm run test`
   - For production, build and start it
