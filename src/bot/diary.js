@@ -1,6 +1,7 @@
 import { sendTextMessage } from './send';
 
 export const receiveDiary = (id, text) => {
+  console.log("receiveDiary function run");
   if (text.indexOf("love") > 0) {
     // TODO: answer back
     sendDiary(id, "Did you say love?");
@@ -33,6 +34,7 @@ export const sendDiary = (id, text) => {
     sendTextMessage(id, text)
   } else {
     //TODO: send logic based on custom diary times
+    console.log("sendDiary function run");
     sendTextMessage(id, text)
   }
 }
