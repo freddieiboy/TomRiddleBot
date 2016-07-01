@@ -140,6 +140,7 @@ export function receivedMessage(event) {
         break;
 
       default:
+        //TODO: replace this with diary logic
         sendTextMessage(senderID, messageText);
     }
   } else if (messageAttachments) {
