@@ -1,13 +1,13 @@
 # Tom Riddle bot
-A conversational Diary
+A daily conversational diary
 
 ### Start bot dev
   - Serve it on node locally
-      `npm run serve`
+  - `npm run serve`
   - Run mocha tests
     `npm run test`
   - For production, build and start it
-    `npm run build ** node dist/server.js`
+    `npm run build && node dist/server.js`
 
 ### Push bot prod
   - Push bot to Github and Heroku builds from master after green CI tests
