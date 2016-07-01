@@ -2,11 +2,14 @@ import { sendTextMessage } from './send';
 
 export const receiveDiary = (id, text) => {
   console.log("receiveDiary function run");
-  if (text.indexOf("love") >= 0) {
+  if (text.indexOf("dad") >= 0) {
     // TODO: answer back
-    sendDiary(id, "Did you say love?");
+    if (text.indexOf("hate") >= 0) {
+      sendDiary(id, "Who else in your family hates you?");
+    }
+    sendDiary(id, "Do you miss your dad?");
   } else {
-    sendDiary(id, "You didn't say love");
+    sendDiary(id, "I don't understand.");
   }
   //NOTE: the logic will need to know what to
   // do once we receive data from the user.
