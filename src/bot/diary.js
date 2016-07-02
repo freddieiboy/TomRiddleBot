@@ -1,7 +1,7 @@
 import { sendTextMessage } from './send';
 
 export const receiveDiary = (id, text) => {
-  console.log("receiveDiary function run");
+  console.log("receiveDiary function run", id);
   if (text.indexOf("dad") >= 0) {
     // TODO: answer back
     if (text.indexOf("hate") >= 0) {
