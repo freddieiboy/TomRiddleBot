@@ -51,7 +51,7 @@ export const sendDiary = (id, text) => {
     sendTextMessage(1128889967149164, 'This sent at 10:10pm')
   } else {
     //TODO: send logic based on custom diary times
-    console.log("sendDiary function run");
+    console.log("nope not time");
     // sendTextMessage(id, text)
   }
 }
