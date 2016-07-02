@@ -20,7 +20,7 @@ export const receiveDiary = (id, text) => {
 // NOTE: bot only send a msg when a user prompts and at the appointed times
 
 const defaultScheduleDiaryTimes = [
-  2230
+  2235
 ]
 
 const userGeneratedDiaryTimes = [
@@ -45,7 +45,7 @@ export const sendDiary = (id, text) => {
   const today = hour + ' ' + minute
   console.log(today);
   //TODO: if time send
-  if (defaultScheduleDiaryTimes && !userGeneratedDiaryTimes) {
+  if (today === defaultScheduleDiaryTimes[1] && today === !userGeneratedDiaryTimes[1]) {
     //TODO: send logic based on default diary times
     sendTextMessage(id, 'This sent at 10:10pm')
   } else {
