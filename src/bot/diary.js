@@ -20,7 +20,7 @@ export const receiveDiary = (id, text) => {
 // NOTE: bot only send a msg when a user prompts and at the appointed times
 
 const defaultScheduleDiaryTimes = [
-  //TODO: list of diary sending times
+  2010
 ]
 
 const userGeneratedDiaryTimes = [
@@ -29,12 +29,23 @@ const userGeneratedDiaryTimes = [
 
 const pickupLines = () => {
   //TODO: logic to choose from different lines
+  let random = 0;
+  const lines = [
+    'How was your day?',
+    'What did you do today?',
+    'Hey, how was it today?',
+    'Tell me, Wha did you today?'
+  ]
+  return lines[random]
 }
 
 export const sendDiary = (id, text) => {
+  const today = new Date().getHours();
+  console.log(today);
+  //TODO: if time send
   if (defaultScheduleDiaryTimes && !userGeneratedDiaryTimes) {
     //TODO: send logic based on default diary times
-    sendTextMessage(id, text)
+    sendTextMessage(id, 'This sent at 10:10pm')
   } else {
     //TODO: send logic based on custom diary times
     console.log("sendDiary function run");
