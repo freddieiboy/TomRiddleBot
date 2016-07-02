@@ -20,11 +20,11 @@ export const receiveDiary = (id, text) => {
 // NOTE: bot only send a msg when a user prompts and at the appointed times
 
 const defaultScheduleDiaryTimes = [
-  925
+  950
 ]
 
 const userGeneratedDiaryTimes = [
-  //TODO: hydrate this with logic
+  1100
 ]
 
 const pickupLines = () => {
