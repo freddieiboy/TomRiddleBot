@@ -13,6 +13,7 @@ export const receiveDiary = (id, text) => {
   // } else {
   //   sendDiary(id, "I don't understand.");
   // }
+  consoe.log('receiveDiary function ran')
   console.log(text);
   // console.log(getUserInfo(id, text));
   //NOTE: the logic will need to know what to
