@@ -17,6 +17,10 @@ export const receiveDiary = (id, text) => {
 
 // NOTE: bot only send a msg when a user prompts and at the appointed times
 
+// SHCEDULE TIME SECTION
+const frozenTime = moment().format();
+console.log(frozenTime);
+
 const defaultScheduleDiaryTimes = [
   //TODO: list of diary sending times
 ]
