@@ -14,7 +14,7 @@ export const receiveDiary = (id, text) => {
   //   sendDiary(id, "I don't understand.");
   // }
   console.log(text);
-  console.log(getUserInfo(id, text));
+  // console.log(getUserInfo(id, text));
   //NOTE: the logic will need to know what to
   // do once we receive data from the user.
   // For instance, what if they say something
@@ -59,27 +59,27 @@ const pickupLine = () => {
   // }
 // }
 
-function getUserInfo(id, messageData) {
-  request({
-    uri: 'https://graph.facebook.com/v2.6/',
-    qs: {
-      USER_ID: id,
-     access_token: PAGE_ACCESS_TOKEN
-    },
-    method: 'GET'
-
-  }, (error, response, body) => {
-    if (!error && response.statusCode == 200) {
-      var recipientId = body.recipient_id;
-      console.log("Successfully got recipient info.", recipientId);
-      return body;
-    } else {
-      console.error("Unable to get info.");
-      console.error(response);
-      console.error(error);
-    }
-  });
-}
+// function getUserInfo(id, messageData) {
+//   request({
+//     uri: 'https://graph.facebook.com/v2.6/',
+//     qs: {
+//       USER_ID: id,
+//      access_token: PAGE_ACCESS_TOKEN
+//     },
+//     method: 'GET'
+//
+//   }, (error, response, body) => {
+//     if (!error && response.statusCode == 200) {
+//       var recipientId = body.recipient_id;
+//       console.log("Successfully got recipient info.", recipientId);
+//       return body;
+//     } else {
+//       console.error("Unable to get info.");
+//       console.error(response);
+//       console.error(error);
+//     }
+//   });
+// }
 
 // const intTime = () => {
 //   defaultScheduleDiaryTimes.map((time) => {
