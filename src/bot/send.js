@@ -201,6 +201,7 @@ export function sendReceiptMessage(recipientId) {
  * get the message id in a response
  *
  */
+
 export function callSendAPI(messageData) {
   request({
     uri: 'https://graph.facebook.com/v2.6/me/messages',
