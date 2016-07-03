@@ -1,5 +1,6 @@
 import { sendTextMessage } from './send';
 import moment from 'moment';
+import request from 'request';
 
 export const receiveDiary = (id, text) => {
   // console.log("receiveDiary function run", id);
@@ -12,7 +13,8 @@ export const receiveDiary = (id, text) => {
   // } else {
   //   sendDiary(id, "I don't understand.");
   // }
-  getUserInfo(id, text);
+  console.log(text);
+  console.log(getUserInfo(id, text));
   //NOTE: the logic will need to know what to
   // do once we receive data from the user.
   // For instance, what if they say something
@@ -79,13 +81,13 @@ function getUserInfo(id, messageData) {
   });
 }
 
-const intTime = () => {
-  defaultScheduleDiaryTimes.map((time) => {
-    console.log(time === moment().format('hh:mmA'), time, moment().format('hh:mmA'))
-  })
-}
+// const intTime = () => {
+//   defaultScheduleDiaryTimes.map((time) => {
+//     console.log(time === moment().format('hh:mmA'), time, moment().format('hh:mmA'))
+//   })
+// }
 
-setInterval(intTime, 60000)
+// setInterval(intTime, 60000)
   // else {
   //   //TODO: send logic based on custom diary times
   //   console.log("nope not time");
