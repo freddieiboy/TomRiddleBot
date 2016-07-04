@@ -69,6 +69,6 @@ app.post('/webhook', (req, res) => {
 // Start server
 // Webhooks must be available via SSL with a certificate signed by a valid
 // certificate authority.
-app.listen(app.get('port'), () => {
+export const redButton = app.listen(app.get('port'), () => {
   console.log('Node app is running on port', app.get('port'));
 });
