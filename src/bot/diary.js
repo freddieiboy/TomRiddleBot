@@ -1,44 +1,53 @@
-import { sendTextMessage } from './send';
+import { callSendAPI } from './send';
 import moment from 'moment';
-import request from 'request';
 
-export const receiveDiary = (id, text) => {
-  if (text.indexOf("love") > 0) {
-    // TODO: answer back
-    sendDiary(id, "Did you say love?");
-  } else {
-    sendDiary(id, "You didn't say love");
-  }
-  //NOTE: the logic will need to know what to
-  // do once we receive data from the user.
-  // For instance, what if they say something
-  // interesting, how do we tell them to elaborate.
+// RECEIVE TEXT MESSAGE
+export const receiveTextMsg = (id, text) => {
+  // if (text.indexOf("love") >= 0) {
+  //   // TODO: answer back
+  //   console.log('love');
+  //   sendDiary(id, "Did you say love?");
+  // } else {
+    sendTextMessage(id, text);
+  // }
 }
 
-// NOTE: bot only send a msg when a user prompts and at the appointed times
+// SCHEDULED TIMES
+const setupDefaultSchedule = () => {
+  const defaultScheduleDiaryTimes = ['06:38PM', '05:00PM', '05:10PM']
+  const userGeneratedDiaryTimes = []
+  const pickupLines = [
+    'Hey, how are you doing today?',
+    'Do you want to write an entry? Tell me about it.',
+    'So how as it today?',
+    'Anything interesting today?',
+  ]
+  const randomNumber = Math.floor(Math.random() * pickupLines.length);
 
-// SHCEDULE TIME SECTION
-const frozenTime = moment().format();
-console.log(frozenTime);
-
-const defaultScheduleDiaryTimes = [
-  //TODO: list of diary sending times
-]
-
-const userGeneratedDiaryTimes = [
-  //TODO: hydrate this with logic
-]
-
-const pickupLines = () => {
-  //TODO: logic to choose from different lines
+  defaultScheduleDiaryTimes.map(defaultTime => {
+    if (defaultTime === moment().format('hh:mmA')) {
+      //TODO: iterate over every ID TMB has w/ user consent
+      console.log('sending defaultMsg at:', defaultTime)
+      sendTextMessage(1128889967149164, pickupLines[randomNumber]);
+    }
+  })
 }
 
-export const sendDiary = (id, text) => {
-  if (defaultScheduleDiaryTimes && !userGeneratedDiaryTimes) {
-    //TODO: send logic based on default diary times
-    sendTextMessage(id, text)
-  } else {
-    //TODO: send logic based on custom diary times
-    sendTextMessage(id, text)
-  }
+setInterval(setupDefaultSchedule, 60000)
+
+//TODO: sendScheduledMsg
+//TODO: sendReponseMsg
+
+// SEND TEXT MESSAGE
+export const sendTextMessage = (recipientId, messageText) => {
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      text: messageText
+    }
+  };
+
+  callSendAPI(messageData);
 }
