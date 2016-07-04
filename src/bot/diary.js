@@ -14,13 +14,14 @@ export const receiveTextMsg = (id, text) => {
 
 // SCHEDULED TIMES
 const setupDefaultSchedule = () => {
-  const defaultScheduleDiaryTimes = ['06:38PM', '05:00PM', '05:10PM']
+  const defaultScheduleDiaryTimes = ['09:00AM', '7:00PM', '11:00PM']
   const userGeneratedDiaryTimes = []
   const pickupLines = [
     'Hey, how are you doing today?',
     'Do you want to write an entry? Tell me about it.',
-    'So how as it today?',
-    'Anything interesting today?',
+    'So how is it going today?',
+    'Anything interesting to tell me?',
+    'Writing is helpful, what are you thinking?'
   ]
   const randomNumber = Math.floor(Math.random() * pickupLines.length);
 
