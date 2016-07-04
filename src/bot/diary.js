@@ -12,29 +12,30 @@ export const receiveTextMsg = (id, text) => {
   // }
 }
 
-// SCHEDULED TIMES
-const setupDefaultSchedule = () => {
-  const defaultScheduleDiaryTimes = ['09:00AM', '7:00PM', '11:00PM']
-  const userGeneratedDiaryTimes = []
-  const pickupLines = [
-    'Hey, how are you doing today?',
-    'Do you want to write an entry? Tell me about it.',
-    'So how is it going today?',
-    'Anything interesting to tell me?',
-    'Writing is helpful, what are you thinking?'
-  ]
-  const randomNumber = Math.floor(Math.random() * pickupLines.length);
+const defaultTimes = ['09:00AM', '7:00PM', '11:00PM']
+const userTimes = []
+const botLines = [
+  'Hey, how are you doing today?',
+  'Do you want to write an entry? Tell me about it.',
+  'So how is it going today?',
+  'Anything interesting to tell me?',
+  'Writing is helpful, what are you thinking?'
+]
 
-  defaultScheduleDiaryTimes.map(defaultTime => {
-    if (defaultTime === moment().format('hh:mmA')) {
+// SCHEDULED TIMES
+export const setupDefaultSchedule = (defaultTimes = [], botLines = []) => {
+  const randomNumber = Math.floor(Math.random() * botLines.length);
+  defaultTimes.map(time => {
+    if (time === moment().format('hh:mmA')) {
       //TODO: iterate over every ID TMB has w/ user consent
-      console.log('sending defaultMsg at:', defaultTime)
-      sendTextMessage(1128889967149164, pickupLines[randomNumber]);
+      console.log('sending defaultMsg at:', time)
+      sendTextMessage(1128889967149164, botLines[randomNumber]);
     }
-  })
+  });
 }
 
-setInterval(setupDefaultSchedule, 60000)
+
+setInterval(setupDefaultSchedule, 60000);
 
 //TODO: sendScheduledMsg
 //TODO: sendReponseMsg
