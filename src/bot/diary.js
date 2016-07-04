@@ -32,7 +32,7 @@ export const setupDefaultScheduleMsg = (defaultTimes, userIdList, botLines) => {
     if (time === moment().format('hh:mmA')) {
       //TODO: iterate over every ID TMB has w/ user consent
       console.log('sending defaultMsg at:', time)
-      if (!process.env.NODE_ENV === 'test') {
+      if (process.env.NODE_ENV !== 'test') {
         sendTextMessage(userIdList[0], botLines[randomNumber]);
       } else {
         return console.log('test mode!');
@@ -42,11 +42,10 @@ export const setupDefaultScheduleMsg = (defaultTimes, userIdList, botLines) => {
 }
 
 // const sendDefault = setupDefaultScheduleMsg(defaultTimes, userIdList, botLines);
-
+console.log(process.env.NODE_ENV)
 // Run setupDefaultScheduleMsg every 60 seconds.
-console.log(process.env.NODE_ENV === 'test')
-
-if (!process.env.NODE_ENV === 'test') {
+if (process.env.NODE_ENV !== 'test') {
+  console.log('does not equal test');
   setInterval(() => {
     console.log('setInterval is running')
     setupDefaultScheduleMsg(defaultTimes, userIdList, botLines);
