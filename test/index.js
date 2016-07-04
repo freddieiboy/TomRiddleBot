@@ -1,7 +1,7 @@
 import http from 'http';
 import { should, expect, assert } from 'chai';
 import { redButton } from '../src/server.js';
-import { setupDefaultSchedule } from '../src/bot/diary';
+import { setupDefaultScheduleMsg } from '../src/bot/diary';
 
 describe('Node Server', () => {
   after(function (done) {
@@ -23,19 +23,21 @@ describe('Node Server', () => {
 });
 
 describe('default sheduled times', () => {
+  //TODO: come back and make this test pass. It's not working currently.
 
   const lines = ['Hey, listen.', 'Ready?', 'Let\'s write.'];
   const PMtimes = ['01:00PM', '04:28PM', '11:32PM'];
   const AMtimes = ['02:00AM', '03:42AM', '10:53AM'];
+  const ids = [1128889967149164];
 
-  context('should send PM sheduled times', () => {
-    setupDefaultSchedule(PMtimes, lines)
+  it('should send PM sheduled times', () => {
+    setupDefaultScheduleMsg(PMtimes, ids, lines);
     // expect('', 'send AM line').to.be.ok;
     expect(lines).equal(lines);
   });
 
-  context('should send AM sheduled times', () => {
-    setupDefaultSchedule(PMtimes, lines)
+  it('should send AM sheduled times', () => {
+    setupDefaultScheduleMsg(PMtimes, ids, lines);
     // expect('', 'send PM line').to.be.ok;
   });
 });

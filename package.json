@@ -8,7 +8,7 @@
     "build": "babel src -d dist",
     "serve": "nodemon src/server.js --exec babel-node",
     "test": "mocha --compilers js:babel-register",
-    "test:watch": "mocha --watch --compilers js:babel-register"
+    "test:watch": "NODE_ENV=test mocha --watch --compilers js:babel-register"
   },
   "author": "Freddie Iboy <freddieiboy@gmail.com> (http://www.simplycolor.in/)",
   "license": "MIT",
