@@ -72,6 +72,33 @@ export function sendButtonMessage(recipientId) {
   callSendAPI(messageData);
 }
 
+
+export function loginPrompt(recipientId) {
+  const messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "generic",
+          elements: [{
+            title: "I can save your diary entries in my notebook. Just log in.",
+            // image_url: "http://www.example.com/images/m-bank.png",
+            buttons: [{
+              type: "account_link",
+              url: "https://www.example.com/oauth/authorize"
+            }]
+          }]
+        }
+      }
+    }
+  }
+
+  callSendAPI(messageData);
+}
+
 /*
  * Send a Structured Message (Generic Message type) using the Send API.
  *

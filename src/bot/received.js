@@ -7,6 +7,7 @@ import {
   sendButtonMessage,
   sendGenericMessage,
   sendReceiptMessage,
+  loginPrompt,
   callSendAPI
 } from './send';
 import { sendTextMessage } from './diary';
@@ -60,14 +61,13 @@ export function receivedMessage(event) {
   var messageAttachments = message.attachments;
 
   if (messageText) {
-    receiveTextMsg(senderID, messageText)
     // If we receive a text message, check to see if it matches any special
     // keywords and send back the corresponding example. Otherwise, just echo
     // the text we received.
-    // switch (messageText) {
-    //   case 'image':
-    //     sendImageMessage(senderID);
-    //     break;
+    switch (messageText) {
+      // case 'image':
+      //   sendImageMessage(senderID);
+      //   break;
       //
       // case 'button':
       //   sendButtonMessage(senderID);
@@ -80,11 +80,13 @@ export function receivedMessage(event) {
       // case 'receipt':
       //   sendReceiptMessage(senderID);
       //   break;
+      case 'login':
+        loginPrompt(senderID);
+        break;
 
-      // default:
-      //   receiveDiary(senderID, messageText)
-        // sendTextMessage(senderID, messageText);
-    // }
+      default:
+        receiveTextMsg(senderID, messageText)
+    }
   } else if (messageAttachments) {
     sendTextMessage(senderID, "Oh that's interesting. Adding it to your diary.");
   }
@@ -181,6 +183,7 @@ export function receivedDeliveryConfirmation(event) {
  * more at https://developers.facebook.com/docs/messenger-platform/webhook-reference#postback
  *
  */
+ // NOTE: I can use this for getting started auth.
 export function receivedPostback(event) {
   var senderID = event.sender.id;
   var recipientID = event.recipient.id;

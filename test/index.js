@@ -22,22 +22,25 @@ describe('Node Server', () => {
   //TODO: send at scheduled times
 });
 
-describe('default sheduled times', () => {
+describe('default sheduled times', function() {
   //TODO: come back and make this test pass. It's not working currently.
-
-  const lines = ['Hey, listen.', 'Ready?', 'Let\'s write.'];
-  const PMtimes = ['01:00PM', '04:28PM', '11:32PM'];
-  const AMtimes = ['02:00AM', '03:42AM', '10:53AM'];
-  const ids = [1128889967149164];
+  // beforeEach(() => {
+    const lines = ['Hey, listen.', 'Ready?', 'Let\'s write.'];
+    const PMtimes = ['01:00PM'];
+    const AMtimes = ['01:00AM'];
+    const ids = [1128889967149164];
+    const currentPMTime = '01:00PM';
+    const currentAMTime = '01:00AM';
+  // })
 
   it('should send PM sheduled times', () => {
-    setupDefaultScheduleMsg(PMtimes, ids, lines);
-    // expect('', 'send AM line').to.be.ok;
-    expect(lines).equal(lines);
+    const schedule = setupDefaultScheduleMsg(PMtimes, ids, lines, currentPMTime);
+    expect(schedule).to.equal(true);
   });
 
   it('should send AM sheduled times', () => {
-    setupDefaultScheduleMsg(PMtimes, ids, lines);
-    // expect('', 'send PM line').to.be.ok;
+    let schedule = setupDefaultScheduleMsg(PMtimes, ids, lines, currentAMTime);
+    console.log(schedule)
+    expect(schedule).to.equal(true);
   });
 });
