@@ -1,15 +1,16 @@
 import crypto from 'crypto';
 import config from 'config';
-import { receiveDiary } from './diary';
+import { receiveTextMsg } from './diary';
 
 import {
   sendImageMessage,
-  sendTextMessage,
   sendButtonMessage,
   sendGenericMessage,
   sendReceiptMessage,
+  loginPrompt,
   callSendAPI
 } from './send';
+import { sendTextMessage } from './diary';
 
 const APP_SECRET = (process.env.MESSENGER_APP_SECRET) ?
   process.env.MESSENGER_APP_SECRET :
@@ -26,6 +27,69 @@ export const PAGE_ACCESS_TOKEN = (process.env.MESSENGER_PAGE_ACCESS_TOKEN) ?
 if (!(APP_SECRET && VALIDATION_TOKEN && PAGE_ACCESS_TOKEN)) {
   console.error("Missing config values");
   process.exit(1);
+}
+
+/*
+ * Message Event
+ *
+ * This event is called when a message is sent to your page. The 'message'
+ * object format can vary depending on the kind of message that was received.
+ * Read more at https://developers.facebook.com/docs/messenger-platform/webhook-reference#received_message
+ *
+ * For this example, we're going to echo any text that we get. If we get some
+ * special keywords ('button', 'generic', 'receipt'), then we'll send back
+ * examples of those bubbles to illustrate the special message bubbles we've
+ * created. If we receive a message with an attachment (image, video, audio),
+ * then we'll simply confirm that we've received the attachment.
+ *
+ */
+export function receivedMessage(event) {
+  var senderID = event.sender.id;
+  var recipientID = event.recipient.id;
+  var timeOfMessage = event.timestamp;
+  var message = event.message;
+
+  //NOTE: Do i need these console.log?
+  // console.log("Received message for user %d and page %d at %d with message:",
+  //   senderID, recipientID, timeOfMessage);
+  // console.log(JSON.stringify(message));
+
+  var messageId = message.mid;
+
+  // You may get a text or attachment but not both
+  var messageText = message.text;
+  var messageAttachments = message.attachments;
+
+  if (messageText) {
+    // If we receive a text message, check to see if it matches any special
+    // keywords and send back the corresponding example. Otherwise, just echo
+    // the text we received.
+    switch (messageText) {
+      // case 'image':
+      //   sendImageMessage(senderID);
+      //   break;
+      //
+      // case 'button':
+      //   sendButtonMessage(senderID);
+      //   break;
+      //
+      // case 'generic':
+      //   sendGenericMessage(senderID);
+      //   break;
+      //
+      // case 'receipt':
+      //   sendReceiptMessage(senderID);
+      //   break;
+      case 'login':
+        loginPrompt(senderID);
+        break;
+
+      default:
+        receiveTextMsg(senderID, messageText)
+    }
+  } else if (messageAttachments) {
+    sendTextMessage(senderID, "Oh that's interesting. Adding it to your diary.");
+  }
 }
 
 /*
@@ -87,70 +151,6 @@ export function receivedAuthentication(event) {
   sendTextMessage(senderID, "Authentication successful");
 }
 
-
-/*
- * Message Event
- *
- * This event is called when a message is sent to your page. The 'message'
- * object format can vary depending on the kind of message that was received.
- * Read more at https://developers.facebook.com/docs/messenger-platform/webhook-reference#received_message
- *
- * For this example, we're going to echo any text that we get. If we get some
- * special keywords ('button', 'generic', 'receipt'), then we'll send back
- * examples of those bubbles to illustrate the special message bubbles we've
- * created. If we receive a message with an attachment (image, video, audio),
- * then we'll simply confirm that we've received the attachment.
- *
- */
-export function receivedMessage(event) {
-  var senderID = event.sender.id;
-  var recipientID = event.recipient.id;
-  var timeOfMessage = event.timestamp;
-  var message = event.message;
-
-  console.log("Received message for user %d and page %d at %d with message:",
-    senderID, recipientID, timeOfMessage);
-  console.log(JSON.stringify(message));
-
-  var messageId = message.mid;
-
-  // You may get a text or attachment but not both
-  var messageText = message.text;
-  var messageAttachments = message.attachments;
-
-  if (messageText) {
-
-    // If we receive a text message, check to see if it matches any special
-    // keywords and send back the corresponding example. Otherwise, just echo
-    // the text we received.
-    switch (messageText) {
-      case 'image':
-        sendImageMessage(senderID);
-        break;
-
-      case 'button':
-        sendButtonMessage(senderID);
-        break;
-
-      case 'generic':
-        sendGenericMessage(senderID);
-        break;
-
-      case 'receipt':
-        sendReceiptMessage(senderID);
-        break;
-
-      default:
-        //TODO: replace this with diary logic
-        receiveDiary(senderID, messageText)
-        // sendTextMessage(senderID, messageText);
-    }
-  } else if (messageAttachments) {
-    sendTextMessage(senderID, "Message with attachment received");
-  }
-}
-
-
 /*
  * Delivery Confirmation Event
  *
@@ -176,7 +176,6 @@ export function receivedDeliveryConfirmation(event) {
   console.log("All message before %d were delivered.", watermark);
 }
 
-
 /*
  * Postback Event
  *
@@ -184,6 +183,7 @@ export function receivedDeliveryConfirmation(event) {
  * more at https://developers.facebook.com/docs/messenger-platform/webhook-reference#postback
  *
  */
+ // NOTE: I can use this for getting started auth.
 export function receivedPostback(event) {
   var senderID = event.sender.id;
   var recipientID = event.recipient.id;

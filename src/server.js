@@ -1,6 +1,5 @@
 /* jshint node: true, devel: true */
 'use strict';
-
 import bodyParser from 'body-parser';
 import express from 'express';
 import https from 'https';
@@ -47,7 +46,6 @@ app.post('/webhook', (req, res) => {
         if (messagingEvent.optin) {
           receivedAuthentication(messagingEvent);
         } else if (messagingEvent.message) {
-          console.log('receieved message')
           receivedMessage(messagingEvent);
         } else if (messagingEvent.delivery) {
           receivedDeliveryConfirmation(messagingEvent);
@@ -70,6 +68,6 @@ app.post('/webhook', (req, res) => {
 // Start server
 // Webhooks must be available via SSL with a certificate signed by a valid
 // certificate authority.
-app.listen(app.get('port'), () => {
+export const redButton = app.listen(app.get('port'), () => {
   console.log('Node app is running on port', app.get('port'));
 });

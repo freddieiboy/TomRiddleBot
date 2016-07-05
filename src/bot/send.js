@@ -23,30 +23,6 @@ export function sendImageMessage(recipientId) {
   callSendAPI(messageData);
 }
 
-// const id = 1128889967149164;
-// const text = "This is from the past.";
-//
-// setTimeout(() => {
-//   sendTextMessage(id, text);
-// }, 4000)
-
-/*
- * Send a text message using the Send API.
- *
- */
-export function sendTextMessage(recipientId, messageText) {
-  var messageData = {
-    recipient: {
-      id: recipientId
-    },
-    message: {
-      text: messageText
-    }
-  };
-
-  callSendAPI(messageData);
-}
-
 /*
  * Send a button message using the Send API.
  *
@@ -75,6 +51,33 @@ export function sendButtonMessage(recipientId) {
       }
     }
   };
+
+  callSendAPI(messageData);
+}
+
+
+export function loginPrompt(recipientId) {
+  const messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "generic",
+          elements: [{
+            title: "I can save your diary entries in my notebook. Just log in.",
+            // image_url: "http://www.example.com/images/m-bank.png",
+            buttons: [{
+              type: "account_link",
+              url: "https://www.example.com/oauth/authorize"
+            }]
+          }]
+        }
+      }
+    }
+  }
 
   callSendAPI(messageData);
 }
@@ -214,12 +217,12 @@ export function callSendAPI(messageData) {
       var recipientId = body.recipient_id;
       var messageId = body.message_id;
 
-      console.log("Successfully sent generic message with id %s to recipient %s",
+      console.log(response.statusCode, "Successfully sent generic message with id %s to recipient %s",
         messageId, recipientId);
     } else {
-      console.error("Unable to send message.");
-      console.error(response);
-      console.error(error);
+      console.error(response.statusCode, "Unable to send message.");
+      // console.error(response);
+      // console.error(error);
     }
   });
 }
