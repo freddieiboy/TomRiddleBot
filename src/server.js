@@ -11,7 +11,7 @@ import {
   receivedDeliveryConfirmation,
   receivedPostback,
   VALIDATION_TOKEN
-} from './bot/received';
+} from './bot/receive';
 
 const app = express();
 

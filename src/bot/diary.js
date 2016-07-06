@@ -1,5 +1,9 @@
 import { callSendAPI } from './send';
 import moment from 'moment';
+import request from 'request';
+import { PAGE_ACCESS_TOKEN, addNewUser } from './receive';
+import fs from 'fs';
+
 
 // RECEIVE TEXT MESSAGE
 export const receiveTextMsg = (id, text) => {
@@ -8,8 +12,50 @@ export const receiveTextMsg = (id, text) => {
   //   console.log('love');
   //   sendDiary(id, "Did you say love?");
   // } else {
-    sendTextMessage(id, text);
+  sendTextMessage(id, text);
   // }
+}
+
+const initNewAccount = () => {
+  //TODO if new account, send welcome message
+}
+
+export const welcomeMessage =(id) => {
+  const messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      text: ''
+      //TODO add personalized welcome message
+    }
+  };
+
+  sendTextMessage(recipientId, messageText);
+}
+
+export const getUserInfo = (id) => {
+  request({
+    uri: 'https://graph.facebook.com/v2.6/',
+    qs: {
+      id,
+      fields: "first_name,last_name,profile_pic,locale,timezone,gender",
+      access_token: PAGE_ACCESS_TOKEN
+    },
+    method: 'GET',
+
+  }, (error, response, body) => {
+    if (!error && response.statusCode == 200) {
+      // var recipientId = body.recipient_id;
+      // var messageId = body.message_id;
+
+      console.log(response.statusCode, "Successfully got User FB Info");
+      addNewUser(id, body);
+    } else {
+      // console.log(response)
+      console.error(response.statusCode, "Unable to send message.");
+    }
+  });
 }
 
 const defaultTimes = ['02:12PM', '06:22PM', '07:34PM', '11:00PM'];

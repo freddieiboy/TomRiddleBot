@@ -1,5 +1,5 @@
 import request from 'request'
-import { PAGE_ACCESS_TOKEN } from './received';
+import { PAGE_ACCESS_TOKEN } from './receive';
 
 /*
  * Send a message with an using the Send API.

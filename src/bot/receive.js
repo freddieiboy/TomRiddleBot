@@ -1,11 +1,44 @@
 import crypto from 'crypto';
 import config from 'config';
-import { receiveTextMsg } from './diary';
+import { receiveTextMsg, getUserInfo } from './diary';
+
 import firebase from 'firebase';
+import { fbase } from '../../config/default';
+const firebaseApp = firebase.initializeApp(fbase);
+const firebaseDb = firebaseApp.database();
+const ref = firebaseDb.ref();
+import $ from 'jquery';
 
-// import { fbbot, fbase } from '../../config/default';
+const date = new Date();
+const time = date.getTime();
 
-// const app = firebase.initializeApp({});
+export const addNewUser = (id, body) => {
+  // const user = $.parseJSON(body);
+  const user = JSON.parse(body);
+  ref.child('users').child(id).transaction((currentData) => {
+  // currentData is null for a new user
+  if (currentData === null) {
+    return {
+      firstName: user.first_name,
+      lastName: user.last_name,
+      isOpen: true,
+      newAccount: true,
+      createdAt: time,
+      profileImageURL: user.profile_pic,
+      id: id
+    };
+  } else {
+    console.log('User already exists!!')
+  }
+}, (error) => {
+  if (error) {
+    console.log('Transaction failed abnormally!', error);
+    callback(false);
+  } else {
+    console.log('Successfully added user to Firebase.');
+  }
+  });
+}
 
 import {
   sendImageMessage,
@@ -87,6 +120,10 @@ export function receivedMessage(event) {
       //   break;
       case 'login':
         loginPrompt(senderID);
+        break;
+
+      case 'test-id':
+        getUserInfo(1128889967149164);
         break;
 
       default:
@@ -194,14 +231,17 @@ export function receivedPostback(event) {
   var recipientID = event.recipient.id;
   var timeOfPostback = event.timestamp;
 
+  console.log('Postback: ', senderID, timeOfPostback);
+  getUserInfo(senderID);
+
   // The 'payload' param is a developer-defined field which is set in a postback
   // button for Structured Messages.
   var payload = event.postback.payload;
 
-  console.log("Received postback for user %d and page %d with payload '%s' " +
-    "at %d", senderID, recipientID, payload, timeOfPostback);
+  // console.log("Received postback for user %d and page %d with payload '%s' " +
+  //   "at %d", senderID, recipientID, payload, timeOfPostback);
 
   // When a postback is called, we'll send a message back to the sender to
   // let them know it was successful
-  sendTextMessage(senderID, "Postback called");
+  // sendTextMessage(senderID, "Postback called");
 }
