@@ -6,13 +6,8 @@ import { PAGE_ACCESS_TOKEN, addNewUser } from './receive';
 
 // RECEIVE TEXT MESSAGE
 export const receiveTextMsg = (id, text) => {
-  // if (text.indexOf("love") >= 0) {
-  //   // TODO: answer back
-  //   console.log('love');
-  //   sendDiary(id, "Did you say love?");
-  // } else {
+  //NOTE: this is an echo function
   sendTextMessage(id, text);
-  // }
 }
 
 const initNewAccount = () => {

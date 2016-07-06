@@ -1,13 +1,9 @@
 import crypto from 'crypto';
 import config from 'config';
 import { receiveTextMsg, getUserInfo } from './diary';
-
-import firebase from 'firebase';
-import { fbase } from '../../config/default';
-const firebaseApp = firebase.initializeApp(fbase);
-const firebaseDb = firebaseApp.database();
-const ref = firebaseDb.ref();
 import $ from 'jquery';
+import { Firebase, FirebaseDb } from '../../config/modules';
+const ref = FirebaseDb.ref();
 
 const date = new Date();
 const time = date.getTime();
