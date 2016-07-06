@@ -1,6 +1,11 @@
 import crypto from 'crypto';
 import config from 'config';
 import { receiveTextMsg } from './diary';
+import firebase from 'firebase';
+
+// import { fbbot, fbase } from '../../config/default';
+
+// const app = firebase.initializeApp({});
 
 import {
   sendImageMessage,
@@ -14,15 +19,15 @@ import { sendTextMessage } from './diary';
 
 const APP_SECRET = (process.env.MESSENGER_APP_SECRET) ?
   process.env.MESSENGER_APP_SECRET :
-  config.get('appSecret');
+  config.get('fbbot.appSecret');
 
 export const VALIDATION_TOKEN = (process.env.MESSENGER_VALIDATION_TOKEN) ?
   (process.env.MESSENGER_VALIDATION_TOKEN) :
-  config.get('validationToken');
+  config.get('fbbot.validationToken');
 
 export const PAGE_ACCESS_TOKEN = (process.env.MESSENGER_PAGE_ACCESS_TOKEN) ?
   (process.env.MESSENGER_PAGE_ACCESS_TOKEN) :
-  config.get('pageAccessToken');
+  config.get('fbbot.pageAccessToken');
 
 if (!(APP_SECRET && VALIDATION_TOKEN && PAGE_ACCESS_TOKEN)) {
   console.error("Missing config values");
