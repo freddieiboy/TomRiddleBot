@@ -2,7 +2,6 @@ import { callSendAPI } from './send';
 import moment from 'moment';
 import request from 'request';
 import { PAGE_ACCESS_TOKEN, addNewUser } from './receive';
-import fs from 'fs';
 
 
 // RECEIVE TEXT MESSAGE
