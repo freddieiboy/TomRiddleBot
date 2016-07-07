@@ -10,10 +10,6 @@ export const receiveTextMsg = (id, text) => {
   sendTextMessage(id, text);
 }
 
-const initNewAccount = () => {
-  //TODO if new account, send welcome message
-}
-
 export const welcomeMessage =(id) => {
   const messageData = {
     recipient: {

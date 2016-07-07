@@ -8,34 +8,6 @@ const ref = FirebaseDb.ref();
 const date = new Date();
 const time = date.getTime();
 
-export const addNewUser = (id, body) => {
-  // const user = $.parseJSON(body);
-  const user = JSON.parse(body);
-  ref.child('users').child(id).transaction((currentData) => {
-  // currentData is null for a new user
-  if (currentData === null) {
-    return {
-      firstName: user.first_name,
-      lastName: user.last_name,
-      isOpen: true,
-      newAccount: true,
-      createdAt: time,
-      profileImageURL: user.profile_pic,
-      id: id
-    };
-  } else {
-    console.log('User already exists!!')
-  }
-}, (error) => {
-  if (error) {
-    console.log('Transaction failed abnormally!', error);
-    callback(false);
-  } else {
-    console.log('Successfully added user to Firebase.');
-  }
-  });
-}
-
 import {
   sendImageMessage,
   sendButtonMessage,
@@ -62,6 +34,58 @@ if (!(APP_SECRET && VALIDATION_TOKEN && PAGE_ACCESS_TOKEN)) {
   console.error("Missing config values");
   process.exit(1);
 }
+
+export const addNewUser = (id, body) => {
+  // const user = $.parseJSON(body);
+  const user = JSON.parse(body);
+  ref.child('users').child(id).transaction((currentData) => {
+  // currentData is null for a new user
+  if (currentData === null) {
+    return {
+      firstName: user.first_name,
+      lastName: user.last_name,
+      isOpen: true,
+      newAccount: true,
+      createdAt: time,
+      profileImageURL: user.profile_pic,
+      id: id
+    };
+  } else {
+    console.log('User already exists!!')
+  }
+}, (error) => {
+  if (error) {
+    console.log('Transaction failed abnormally!', error);
+    // callback(false);
+  } else {
+    console.log('Successfully added user to Firebase.');
+  }
+  });
+}
+
+const isUserInDatabase = (id) => {
+  checkUserDatabase(id, (exists) => {
+    if (exists) {
+      console.log('user exists');
+    } else {
+      console.log('user does not exist');
+    }
+  })
+}
+
+const checkUserDatabase = (id, callback) => {
+  ref.child('users').child(id).once('value', (snapshot) => {
+    const exists = (snapshot.val() !== null);
+    console.log(snapshot.val().firstName)
+    callback(exists);
+  });
+}
+
+const ifFirstTimeUser = (id) => {
+
+  //TODO if new account, send welcome message
+}
+
 
 /*
  * Message Event
@@ -118,8 +142,8 @@ export function receivedMessage(event) {
         loginPrompt(senderID);
         break;
 
-      case 'test-id':
-        getUserInfo(1128889967149164);
+      case 'test-map':
+        isUserInDatabase(senderID);
         break;
 
       default:
@@ -239,5 +263,6 @@ export function receivedPostback(event) {
 
   // When a postback is called, we'll send a message back to the sender to
   // let them know it was successful
+  ifFirstTimeUser(senderID);
   // sendTextMessage(senderID, "Postback called");
 }
