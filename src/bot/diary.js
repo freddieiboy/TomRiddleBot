@@ -59,14 +59,14 @@ const getCurrentTime = () => {
 // sends a random botLine to everyone on userIdList.
 export const setupDefaultScheduleMsg = (defaultTimes, userIdList, botLines, currentTime) => {
   const randomNumber = Math.floor(Math.random() * botLines.length);
-  console.log(userIdList)
-  defaultTimes.map(time => {
+\  defaultTimes.map(time => {
     if (time === currentTime) {
       // console.log(time, currentTime, time === currentTime)
       //TODO: iterate over every ID TMB has w/ user consent
       if (process.env.NODE_ENV !== 'test') {
         console.log('sending defaultMsg at:', time)
         userIdList.map(id => {
+          console.log(id);
           sendTextMessage(id, botLines[randomNumber])
         })
       } else {
