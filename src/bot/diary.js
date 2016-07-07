@@ -26,7 +26,7 @@ export const firstWelcomeMessage = (recipientId, name) => {
   sendTextMessage(recipientId, messageText);
 }
 
-const defaultTimes = ['11:05PM', '11:10PM', '11:30PM'];
+const defaultTimes = ['11:15PM', '11:25PM', '11:35PM'];
 const userTimes = [];
 const botLines = [
   'Hey, how are you doing today?',
@@ -59,7 +59,7 @@ const getCurrentTime = () => {
 // sends a random botLine to everyone on userIdList.
 export const setupDefaultScheduleMsg = (defaultTimes, userIdList, botLines, currentTime) => {
   const randomNumber = Math.floor(Math.random() * botLines.length);
-\  defaultTimes.map(time => {
+  defaultTimes.map(time => {
     if (time === currentTime) {
       // console.log(time, currentTime, time === currentTime)
       //TODO: iterate over every ID TMB has w/ user consent
