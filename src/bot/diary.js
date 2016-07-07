@@ -81,7 +81,7 @@ export const setupDefaultScheduleMsg = (defaultTimes, userIdList, botLines, curr
 if (process.env.NODE_ENV !== 'test') {
   setInterval(() => {
     setupDefaultScheduleMsg(defaultTimes, userIdList, botLines, getCurrentTime());
-  }, 6000);
+  }, 60000);
 }
 
 //TODO: sendScheduledMsg
