@@ -1,15 +1,26 @@
 import { callSendAPI } from './send';
 import moment from 'moment';
+import request from 'request';
+import { PAGE_ACCESS_TOKEN, addNewUser } from './receive';
+
 
 // RECEIVE TEXT MESSAGE
 export const receiveTextMsg = (id, text) => {
-  // if (text.indexOf("love") >= 0) {
-  //   // TODO: answer back
-  //   console.log('love');
-  //   sendDiary(id, "Did you say love?");
-  // } else {
-    sendTextMessage(id, text);
-  // }
+  //NOTE: this is an echo function
+  sendTextMessage(id, text);
+}
+
+export const welcomeBackMessage = (recipientId, name) => {
+  const messageText = 'Welcome back, ' + name + '.'
+
+  sendTextMessage(recipientId, messageText);
+}
+
+export const firstWelcomeMessage = (recipientId, name) => {
+  console.log('this is from welcome message', recipientId);
+  const messageText = 'Welcome to your conversational diary, ' + name + '. My name is Tom Riddle.'
+
+  sendTextMessage(recipientId, messageText);
 }
 
 const defaultTimes = ['02:12PM', '06:22PM', '07:34PM', '11:00PM'];
