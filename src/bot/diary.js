@@ -26,7 +26,7 @@ export const firstWelcomeMessage = (recipientId, name) => {
   sendTextMessage(recipientId, messageText);
 }
 
-const defaultTimes = ['11:00PM', '11:10PM', '11:30PM'];
+const defaultTimes = ['11:05PM', '11:10PM', '11:30PM'];
 const userTimes = [];
 const botLines = [
   'Hey, how are you doing today?',
