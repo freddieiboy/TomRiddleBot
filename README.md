@@ -14,4 +14,4 @@ A daily conversational diary
     `git push`
 
 ### Run locally to test bot
-  - TODO
+  - lt --port 5000 --subdomain tomriddlebot
