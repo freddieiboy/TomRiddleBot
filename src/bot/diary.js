@@ -26,7 +26,7 @@ export const firstWelcomeMessage = (recipientId, name) => {
   sendTextMessage(recipientId, messageText);
 }
 
-const defaultTimes = ['10:20PM', '10:40PM', '11:00PM'];
+const defaultTimes = ['11:00PM', '11:10PM', '11:30PM'];
 const userTimes = [];
 const botLines = [
   'Hey, how are you doing today?',
@@ -59,13 +59,16 @@ const getCurrentTime = () => {
 // sends a random botLine to everyone on userIdList.
 export const setupDefaultScheduleMsg = (defaultTimes, userIdList, botLines, currentTime) => {
   const randomNumber = Math.floor(Math.random() * botLines.length);
+  console.log(userIdList)
   defaultTimes.map(time => {
     if (time === currentTime) {
       // console.log(time, currentTime, time === currentTime)
       //TODO: iterate over every ID TMB has w/ user consent
       if (process.env.NODE_ENV !== 'test') {
         console.log('sending defaultMsg at:', time)
-        userIdList.map(id => sendTextMessage(id, botLines[randomNumber]))
+        userIdList.map(id => {
+          sendTextMessage(id, botLines[randomNumber])
+        })
       } else {
         console.log('true!!!')
         return true;
@@ -78,7 +81,7 @@ export const setupDefaultScheduleMsg = (defaultTimes, userIdList, botLines, curr
 if (process.env.NODE_ENV !== 'test') {
   setInterval(() => {
     setupDefaultScheduleMsg(defaultTimes, userIdList, botLines, getCurrentTime());
-  }, 60000);
+  }, 6000);
 }
 
 //TODO: sendScheduledMsg
