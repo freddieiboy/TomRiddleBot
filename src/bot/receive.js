@@ -290,6 +290,7 @@ export function receivedPostback(event) {
   // let them know it was successful
 
   //NOTE: checking if user is in Database
+  console.log('Received postback.')
   isUserInDatabase(senderID);
   // console.log(event);
   // sendTextMessage(senderID, "Postback called");
