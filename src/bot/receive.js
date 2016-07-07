@@ -2,7 +2,7 @@ import crypto from 'crypto';
 import config from 'config';
 import { receiveTextMsg, welcomeBackMessage, firstWelcomeMessage } from './diary';
 import $ from 'jquery';
-import { Firebase, FirebaseDb } from '../../config/modules';
+import { Firebase, FirebaseDb } from '../modules';
 const ref = FirebaseDb.ref();
 import request from 'request';
 

@@ -2,7 +2,7 @@ import { callSendAPI } from './send';
 import moment from 'moment';
 import request from 'request';
 import { PAGE_ACCESS_TOKEN, addNewUser } from './receive';
-import { FirebaseDb } from '../../config/modules';
+import { FirebaseDb } from '../modules';
 const ref = FirebaseDb.ref();
 
 // RECEIVE TEXT MESSAGE
