@@ -58,7 +58,6 @@ const getCurrentTime = () => {
 // This gets checks defaultTimes against current time. If true,
 // sends a random botLine to everyone on userIdList.
 export const setupDefaultScheduleMsg = (defaultTimes, userIdList, botLines, currentTime) => {
-  console.log('useridList from setupDefaultScheduleMsg', userIdList)
   const randomNumber = Math.floor(Math.random() * botLines.length);
   defaultTimes.map(time => {
     if (time === currentTime) {
