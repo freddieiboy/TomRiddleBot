@@ -50,6 +50,7 @@ app.post('/webhook', (req, res) => {
         } else if (messagingEvent.delivery) {
           receivedDeliveryConfirmation(messagingEvent);
         } else if (messagingEvent.postback) {
+          console.log('From post(webhook)')
           receivedPostback(messagingEvent);
         } else {
           console.log("Webhook received unknown messagingEvent: ", messagingEvent);
