@@ -2,12 +2,15 @@ import { callSendAPI } from './send';
 import moment from 'moment';
 import request from 'request';
 import { PAGE_ACCESS_TOKEN, addNewUser } from './receive';
-
+import { FirebaseDb } from '../../config/modules';
+const ref = FirebaseDb.ref();
 
 // RECEIVE TEXT MESSAGE
 export const receiveTextMsg = (id, text) => {
   //NOTE: this is an echo function
-  sendTextMessage(id, text);
+  setTimeout(() => {
+    sendTextMessage(id, 'Thanks, saving it your diary.');
+  }, 3000)
 }
 
 export const welcomeBackMessage = (recipientId, name) => {
@@ -23,16 +26,31 @@ export const firstWelcomeMessage = (recipientId, name) => {
   sendTextMessage(recipientId, messageText);
 }
 
-const defaultTimes = ['02:12PM', '06:22PM', '07:34PM', '11:00PM'];
+const defaultTimes = ['09:20PM', '09:40PM', '10:00PM', '09:02PM'];
 const userTimes = [];
 const botLines = [
   'Hey, how are you doing today?',
   'Do you want to write an entry? Tell me about it.',
   'So how is it going today?',
   'Anything interesting to tell me?',
-  'Writing is helpful, what are you thinking?'
+  'Writing is helpful, what are you thinking?',
+  'Think about your day. What stood out?',
+  'Write an entry right now.',
+  'How are you feeling?'
 ];
-const userIdList = [1128889967149164];
+
+let userIdList = [];
+
+// TEMPORARY!!! set up userIdList from isActive users on Firebase.
+const stateSetupUserList = () => {
+  ref.child('users').orderByChild('isActive').equalTo(true).on('child_added', (snapshot) => {
+    const id = snapshot.val().id;
+    userIdList.push(id);
+  });
+}
+stateSetupUserList();
+
+// userIdList = [1128889967149164];
 
 const getCurrentTime = () => {
   return moment().format('hh:mmA');
@@ -42,6 +60,7 @@ const getCurrentTime = () => {
 // This gets checks defaultTimes against current time. If true,
 // sends a random botLine to everyone on userIdList.
 export const setupDefaultScheduleMsg = (defaultTimes, userIdList, botLines, currentTime) => {
+  console.log('useridList from setupDefaultScheduleMsg', userIdList)
   const randomNumber = Math.floor(Math.random() * botLines.length);
   defaultTimes.map(time => {
     if (time === currentTime) {
@@ -49,7 +68,7 @@ export const setupDefaultScheduleMsg = (defaultTimes, userIdList, botLines, curr
       //TODO: iterate over every ID TMB has w/ user consent
       if (process.env.NODE_ENV !== 'test') {
         console.log('sending defaultMsg at:', time)
-        sendTextMessage(userIdList[0], botLines[randomNumber]);
+        userIdList.map(id => sendTextMessage(id, botLines[randomNumber]))
       } else {
         console.log('true!!!')
         return true;
