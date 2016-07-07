@@ -50,8 +50,6 @@ const stateSetupUserList = () => {
 }
 stateSetupUserList();
 
-// userIdList = [1128889967149164];
-
 const getCurrentTime = () => {
   return moment().format('hh:mmA');
 }
