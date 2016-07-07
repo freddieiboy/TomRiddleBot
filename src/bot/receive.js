@@ -109,19 +109,6 @@ const checkUserDatabase = (id, callback) => {
     callback(exists, data);
   });
 }
-//
-// const ifFirstTimeUser = (id) => {
-//   checkUserDatabase(id, (exists, data) => {
-//     if (exists) {
-//       console.log('here is the data:', data)
-//       //TODO: send welcome back msg
-//     } else {
-//       console.log('no data exists')
-//     }
-//   })
-//   //TODO if new account, send welcome message
-// }
-
 
 /*
  * Message Event
