@@ -10,42 +10,17 @@ export const receiveTextMsg = (id, text) => {
   sendTextMessage(id, text);
 }
 
-export const welcomeMessage =(id) => {
-  const messageData = {
-    recipient: {
-      id: recipientId
-    },
-    message: {
-      text: ''
-      //TODO add personalized welcome message
-    }
-  };
+export const welcomeBackMessage = (recipientId, name) => {
+  const messageText = 'Welcome back, ' + name + '.'
 
   sendTextMessage(recipientId, messageText);
 }
 
-export const getUserInfo = (id) => {
-  request({
-    uri: 'https://graph.facebook.com/v2.6/',
-    qs: {
-      id,
-      fields: "first_name,last_name,profile_pic,locale,timezone,gender",
-      access_token: PAGE_ACCESS_TOKEN
-    },
-    method: 'GET',
+export const firstWelcomeMessage = (recipientId, name) => {
+  console.log('this is from welcome message', recipientId);
+  const messageText = 'Welcome to your conversational diary, ' + name + '. My name is Tom Riddle.'
 
-  }, (error, response, body) => {
-    if (!error && response.statusCode == 200) {
-      // var recipientId = body.recipient_id;
-      // var messageId = body.message_id;
-
-      console.log(response.statusCode, "Successfully got User FB Info");
-      addNewUser(id, body);
-    } else {
-      // console.log(response)
-      console.error(response.statusCode, "Unable to send message.");
-    }
-  });
+  sendTextMessage(recipientId, messageText);
 }
 
 const defaultTimes = ['02:12PM', '06:22PM', '07:34PM', '11:00PM'];

@@ -1,9 +1,10 @@
 import crypto from 'crypto';
 import config from 'config';
-import { receiveTextMsg, getUserInfo } from './diary';
+import { receiveTextMsg, welcomeBackMessage, firstWelcomeMessage } from './diary';
 import $ from 'jquery';
 import { Firebase, FirebaseDb } from '../../config/modules';
 const ref = FirebaseDb.ref();
+import request from 'request';
 
 const date = new Date();
 const time = date.getTime();
@@ -35,19 +36,19 @@ if (!(APP_SECRET && VALIDATION_TOKEN && PAGE_ACCESS_TOKEN)) {
   process.exit(1);
 }
 
-export const addNewUser = (id, body) => {
+export const addNewUserToDB = (id, body) => {
   // const user = $.parseJSON(body);
-  const user = JSON.parse(body);
+  // const user = JSON.parse(body);
   ref.child('users').child(id).transaction((currentData) => {
   // currentData is null for a new user
   if (currentData === null) {
     return {
-      firstName: user.first_name,
-      lastName: user.last_name,
-      isOpen: true,
+      firstName: body.first_name,
+      lastName: body.last_name,
+      isActive: true,
       newAccount: true,
       createdAt: time,
-      profileImageURL: user.profile_pic,
+      profileImageURL: body.profile_pic,
       id: id
     };
   } else {
@@ -63,12 +64,40 @@ export const addNewUser = (id, body) => {
   });
 }
 
+export const getUserInfoFromFB = (id) => {
+  //This gets user name from FB, adds to Firebase, sends welcome message.
+  //TODO: separate out these functions
+  request({
+    uri: 'https://graph.facebook.com/v2.6/',
+    qs: {
+      id,
+      fields: "first_name,last_name,profile_pic,locale,timezone,gender",
+      access_token: PAGE_ACCESS_TOKEN
+    },
+    method: 'GET',
+
+  }, (error, response, body) => {
+    if (!error && response.statusCode == 200) {
+      console.log(response.statusCode, "Successfully got User FB Info");
+      const user = JSON.parse(body);
+      console.log(user.first_name);
+
+      addNewUserToDB(id, user);
+      firstWelcomeMessage(id, user.first_name);
+    } else {
+      console.error(response.statusCode, "Unable to send message.");
+    }
+  });
+}
+
 const isUserInDatabase = (id) => {
-  checkUserDatabase(id, (exists) => {
+  checkUserDatabase(id, (exists, data) => {
     if (exists) {
       console.log('user exists');
+      welcomeBackMessage(data.id, data.firstName);
     } else {
-      console.log('user does not exist');
+      console.log('user does not exist, adding to database');
+      getUserInfoFromFB(id);
     }
   })
 }
@@ -76,15 +105,22 @@ const isUserInDatabase = (id) => {
 const checkUserDatabase = (id, callback) => {
   ref.child('users').child(id).once('value', (snapshot) => {
     const exists = (snapshot.val() !== null);
-    console.log(snapshot.val().firstName)
-    callback(exists);
+    const data = snapshot.val();
+    callback(exists, data);
   });
 }
-
-const ifFirstTimeUser = (id) => {
-
-  //TODO if new account, send welcome message
-}
+//
+// const ifFirstTimeUser = (id) => {
+//   checkUserDatabase(id, (exists, data) => {
+//     if (exists) {
+//       console.log('here is the data:', data)
+//       //TODO: send welcome back msg
+//     } else {
+//       console.log('no data exists')
+//     }
+//   })
+//   //TODO if new account, send welcome message
+// }
 
 
 /*
@@ -138,12 +174,16 @@ export function receivedMessage(event) {
       // case 'receipt':
       //   sendReceiptMessage(senderID);
       //   break;
-      case 'login':
+      case 'dev-login':
         loginPrompt(senderID);
         break;
 
-      case 'test-map':
+      case 'dev-map':
         isUserInDatabase(senderID);
+        break;
+
+      case 'dev-welcome':
+        firstWelcomeMessage(senderID, 'Freddie');
         break;
 
       default:
@@ -245,14 +285,12 @@ export function receivedDeliveryConfirmation(event) {
  * more at https://developers.facebook.com/docs/messenger-platform/webhook-reference#postback
  *
  */
- // NOTE: I can use this for getting started auth.
 export function receivedPostback(event) {
   var senderID = event.sender.id;
   var recipientID = event.recipient.id;
   var timeOfPostback = event.timestamp;
 
-  console.log('Postback: ', senderID, timeOfPostback);
-  getUserInfo(senderID);
+  // console.log('Postback: ', senderID, timeOfPostback);
 
   // The 'payload' param is a developer-defined field which is set in a postback
   // button for Structured Messages.
@@ -263,6 +301,9 @@ export function receivedPostback(event) {
 
   // When a postback is called, we'll send a message back to the sender to
   // let them know it was successful
-  ifFirstTimeUser(senderID);
+
+  //NOTE: checking if user is in Database
+  isUserInDatabase(senderID);
+  // console.log(event);
   // sendTextMessage(senderID, "Postback called");
 }
