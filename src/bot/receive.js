@@ -131,11 +131,6 @@ export function receivedMessage(event) {
   var timeOfMessage = event.timestamp;
   var message = event.message;
 
-  //NOTE: Do i need these console.log?
-  // console.log("Received message for user %d and page %d at %d with message:",
-  //   senderID, recipientID, timeOfMessage);
-  // console.log(JSON.stringify(message));
-
   var messageId = message.mid;
 
   // You may get a text or attachment but not both

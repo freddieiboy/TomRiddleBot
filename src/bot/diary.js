@@ -13,7 +13,6 @@ const ref = FirebaseDb.ref();
 
 // RECEIVE TEXT MESSAGE
 export const receiveTextMsg = (id, text) => {
-  //NOTE: this is an echo function
   setTimeout(() => {
     sendTextMessage(id, 'Thanks, saving it your diary.');
   }, 3000)
@@ -91,11 +90,8 @@ export const setupDefaultScheduleMsg = (defaultTimes, userIdList, botLines, curr
 if (process.env.NODE_ENV !== 'test') {
   setInterval(() => {
     setupDefaultScheduleMsg(defaultTimes, userIdList, botLines, getCurrentTime(0));
-  }, 6000);
+  }, 60000);
 }
-
-//TODO: sendScheduledMsg
-//TODO: sendReponseMsg
 
 // SEND TEXT MESSAGE
 export const sendTextMessage = (recipientId, messageText) => {
