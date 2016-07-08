@@ -45,8 +45,9 @@ export const addNewUserToDB = (id, body) => {
     return {
       firstName: body.first_name,
       lastName: body.last_name,
+      timezone: body.timezone,
+      gender: body.gender,
       isActive: true,
-      newAccount: true,
       createdAt: time,
       profileImageURL: body.profile_pic,
       id: id

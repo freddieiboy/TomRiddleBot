@@ -40,6 +40,7 @@ const botLines = [
 ];
 
 let userIdList = [];
+let userTimezone = 0;
 
 // TEMPORARY!!! set up userIdList from isActive users on Firebase.
 const stateSetupUserList = () => {
@@ -50,9 +51,11 @@ const stateSetupUserList = () => {
 }
 stateSetupUserList();
 
-const getCurrentTime = () => {
-  return moment().format('hh:mmA');
+const getCurrentTime = (userTimezone) => {
+  return moment().utc().utcOffset(userTimezone).format('hh:mmA');
 }
+
+console.log(getCurrentTime(userTimezone));
 
 // SCHEDULED TIMES
 // This gets checks defaultTimes against current time. If true,
@@ -60,6 +63,7 @@ const getCurrentTime = () => {
 export const setupDefaultScheduleMsg = (defaultTimes, userIdList, botLines, currentTime) => {
   const randomNumber = Math.floor(Math.random() * botLines.length);
   defaultTimes.map(time => {
+    console.log(currentTime)
     if (time === currentTime) {
       // console.log(time, currentTime, time === currentTime)
       //TODO: iterate over every ID TMB has w/ user consent
@@ -80,8 +84,8 @@ export const setupDefaultScheduleMsg = (defaultTimes, userIdList, botLines, curr
 // Run setupDefaultScheduleMsg every 60 seconds.
 if (process.env.NODE_ENV !== 'test') {
   setInterval(() => {
-    setupDefaultScheduleMsg(defaultTimes, userIdList, botLines, getCurrentTime());
-  }, 60000);
+    setupDefaultScheduleMsg(defaultTimes, userIdList, botLines, getCurrentTime(0));
+  }, 6000);
 }
 
 //TODO: sendScheduledMsg
