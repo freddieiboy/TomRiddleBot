@@ -5,6 +5,12 @@ import { PAGE_ACCESS_TOKEN, addNewUser } from './receive';
 import { FirebaseDb } from '../modules';
 const ref = FirebaseDb.ref();
 
+//TODO: refractor schedule for one time a day. Make tests pass.
+//TODO: refactor bot lines for longer answers. Make tests pass.
+//TODO: save journal entry for users when they sign in.
+//TODO: add redux for state management.
+//TODO: allow users to change when tom messages them.
+
 // RECEIVE TEXT MESSAGE
 export const receiveTextMsg = (id, text) => {
   //NOTE: this is an echo function
