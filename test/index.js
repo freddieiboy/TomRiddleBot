@@ -1,7 +1,9 @@
 import http from 'http';
 import { should, expect, assert } from 'chai';
 import { redButton } from '../src/server.js';
-import { setupDefaultScheduleMsg } from '../src/bot/diary';
+// import { setupDefaultScheduleMsg } from '../src/bot/diary';
+
+//TODO: make firebase unmount listen for test:watch
 
 //TODO: make sure that bot starts up
 describe('Node Server', () => {
