@@ -51,12 +51,12 @@ describe('bot schedule prompt', () => {
     expect(sendPrompt(scheduledTime1, currentTime)).to.equal.true;
     expect(sendPrompt(scheduledTime2, currentTime)).to.not.equal.true;
   });
-  it('should allow users to change sheduled time', () => {
-    //TODO
-  });
-  it('should return to default time on command', () => {
-
-  });
+  // it('should allow users to change sheduled time', () => {
+  //   //TODO
+  // });
+  // it('should return to default time on command', () => {
+  //   //TODO
+  // });
 });
 
 //TODO: refactor bot lines for longer answers. Make tests pass.
