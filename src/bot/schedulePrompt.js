@@ -7,6 +7,10 @@ let allBotPrompts = ['Write in your diary right now.'];
 let allBotTimes = ['12:00PM'];
 const temporaryID = 131722383924259;
 
+export const setCurrentServerTime = () => {
+  return moment().utc().format('hh:mmA');
+};
+
 export const setPromptSchedule = () => {
   const newSchedule = {
     time: allBotTimes[0],
@@ -24,10 +28,6 @@ export const setScheduleHistory = (time, prompt) => {
 
   return oldSchedule;
 }
-
-const setupCurrentServerTime = () => {
-  return moment().utc().format('hh:mmA');
-};
 
 export const isItTimeToSendPrompt = (scheduledPrompt, currentTime) => {
   if (scheduledPrompt.time === currentTime) {

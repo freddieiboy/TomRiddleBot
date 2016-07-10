@@ -2,6 +2,7 @@ import http from 'http';
 import { should, expect, assert } from 'chai';
 import { redButton } from '../src/server.js';
 import * as schedulePrompt from '../src/bot/schedulePrompt';
+import moment from 'moment';
 
 //TODO: make sure that bot starts up
 describe('Node Server', () => {
@@ -16,6 +17,10 @@ describe('Node Server', () => {
       done();
     });
   });
+  it('should have correct server timezone of UTC', () => {
+    const time = schedulePrompt.setCurrentServerTime;
+    expect(moment().utcOffset(time())._offset).to.equal(-0)
+  });
   it('should successfully send msgs', () => {
     //TODO
   });
@@ -28,7 +33,6 @@ describe('Node Server', () => {
 describe('bot schedule prompt', () => {
   const schedule = schedulePrompt.setPromptSchedule();
   const oldSchedule = schedulePrompt.setScheduleHistory('07:00PM', 'Test Prompt');
-  console.log(schedulePrompt.isItTimeToSendPrompt)
 
   it('should queue 1 prompt that day in setupPromptSchedule', () => {
     expect(schedule.time).to.not.be.null;
