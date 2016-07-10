@@ -1,7 +1,8 @@
 import http from 'http';
 import { should, expect, assert } from 'chai';
 import { redButton } from '../src/server.js';
-// import { setupDefaultScheduleMsg } from '../src/bot/diary';
+import { ref } from '../src/bot/diary';
+import * as schedulePrompt from '../src/bot/schedulePrompt';
 
 //TODO: make firebase unmount listen for test:watch
 
@@ -9,6 +10,7 @@ import { redButton } from '../src/server.js';
 describe('Node Server', () => {
   after(function (done) {
       redButton.close();
+      ref.off();
       done();
   });
   it('should return 200', done => {
@@ -28,8 +30,12 @@ describe('Node Server', () => {
 
 //TODO: refractor schedule for one time a day. Make tests pass.
 describe('bot schedule prompt', () => {
-  it('should queue 1 prompt that day', () => {
-    //TODO
+  describe('setupPromptSchedule', () => {
+    it('should queue 1 prompt that day', () => {
+      const schedule = schedulePrompt.setupPromptSchedule();
+      expect(schedule.time).to.not.be.null;
+      expect(schedule.prompt).to.not.be.null;
+    });
   });
   it('should not have the same prompt as the previous two days', () => {
     //TODO

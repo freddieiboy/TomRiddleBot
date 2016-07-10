@@ -3,7 +3,9 @@ import moment from 'moment';
 import request from 'request';
 import { PAGE_ACCESS_TOKEN, addNewUser } from './receive';
 import { FirebaseDb } from '../modules';
-const ref = FirebaseDb.ref();
+export const ref = FirebaseDb.ref();
+
+import * as schedule from './schedulePrompt';
 
 //TODO: refractor schedule for one time a day. Make tests pass.
 //TODO: refactor bot lines for longer answers. Make tests pass.
@@ -60,7 +62,7 @@ const getCurrentTime = (userTimezone) => {
   return moment().utc().utcOffset(userTimezone).format('hh:mmA');
 }
 
-console.log(getCurrentTime(userTimezone));
+// console.log(getCurrentTime(userTimezone));
 
 // SCHEDULED TIMES
 // This gets checks defaultTimes against current time. If true,
@@ -68,7 +70,7 @@ console.log(getCurrentTime(userTimezone));
 export const setupDefaultScheduleMsg = (defaultTimes, userIdList, botLines, currentTime) => {
   const randomNumber = Math.floor(Math.random() * botLines.length);
   defaultTimes.map(time => {
-    console.log(currentTime)
+    // console.log(currentTime)
     if (time === currentTime) {
       // console.log(time, currentTime, time === currentTime)
       //TODO: iterate over every ID TMB has w/ user consent
@@ -81,7 +83,7 @@ export const setupDefaultScheduleMsg = (defaultTimes, userIdList, botLines, curr
       } else {
         console.log('true!!!')
         return true;
-      }
+       }
     }
   });
 }
