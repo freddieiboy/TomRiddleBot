@@ -4,16 +4,27 @@ const ref = FirebaseDb.ref();
 
 let allBotPrompts = ['Write in your diary right now.'];
 let allBotTimes = ['12:00PM'];
-// let promptSchedule = {};
+const temporaryID = 131722383924259;
 
-export const setupPromptSchedule = () => {
-  const promptSchedule = {
+// sendTextMessage(temporaryID, 'Test sendTextMessage');
+
+export const setPromptSchedule = () => {
+  const newSchedule = {
     time: allBotTimes[0],
     prompt: allBotPrompts[0]
   }
 
-  return promptSchedule
+  return newSchedule;
 };
+
+export const setScheduleHistory = (time, prompt) => {
+  const oldSchedule = {
+    time: time,
+    prompt: prompt
+  }
+
+  return oldSchedule;
+}
 
 const setupCurrentServerTime = () => {
   return moment().utc().format('hh:mmA');

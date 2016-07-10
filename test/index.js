@@ -2,15 +2,11 @@ import http from 'http';
 import { should, expect, assert } from 'chai';
 import { redButton } from '../src/server.js';
 import * as schedulePrompt from '../src/bot/schedulePrompt';
-import { turnOffFirebase } from '../src/bot/diary';
-
-//TODO: make firebase unmount listen for test:watch
 
 //TODO: make sure that bot starts up
 describe('Node Server', () => {
   after(done => {
       redButton.close();
-      turnOffFirebase();
       done();
   });
   it('should return 200', done => {
@@ -30,15 +26,16 @@ describe('Node Server', () => {
 
 //TODO: refractor schedule for one time a day. Make tests pass.
 describe('bot schedule prompt', () => {
-  describe('setupPromptSchedule', () => {
-    it('should queue 1 prompt that day', () => {
-      const schedule = schedulePrompt.setupPromptSchedule();
-      expect(schedule.time).to.not.be.null;
-      expect(schedule.prompt).to.not.be.null;
-    });
+  const schedule = schedulePrompt.setPromptSchedule();
+  const oldSchedule = schedulePrompt.setScheduleHistory('07:00PM', 'Test Prompt');
+
+  it('should queue 1 prompt that day in setupPromptSchedule', () => {
+    expect(schedule.time).to.not.be.null;
+    expect(schedule.prompt).to.not.be.null;
   });
-  it('should not have the same prompt as the previous two days', () => {
-    //TODO
+  it('should not have the same prompt as the previous day', () => {
+    expect(oldSchedule.time).to.not.equal(schedule.time);
+    expect(oldSchedule.prompt).to.not.equal(schedule.prompt);
   });
   it('should send at scheduled time', () => {
     //TODO
