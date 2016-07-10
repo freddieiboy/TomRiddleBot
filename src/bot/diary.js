@@ -5,8 +5,6 @@ import { PAGE_ACCESS_TOKEN, addNewUser } from './receive';
 import { FirebaseDb } from '../modules';
 const ref = FirebaseDb.ref();
 
-import * as schedule from './schedulePrompt';
-
 //TODO: refractor schedule for one time a day. Make tests pass.
 //TODO: refactor bot lines for longer answers. Make tests pass.
 //TODO: save journal entry for users when they sign in.

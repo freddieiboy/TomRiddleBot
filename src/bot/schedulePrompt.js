@@ -1,12 +1,11 @@
 import moment from 'moment';
 import { FirebaseDb } from '../modules';
 const ref = FirebaseDb.ref();
+import { sendTextMessage } from './diary';
 
 let allBotPrompts = ['Write in your diary right now.'];
 let allBotTimes = ['12:00PM'];
 const temporaryID = 131722383924259;
-
-// sendTextMessage(temporaryID, 'Test sendTextMessage');
 
 export const setPromptSchedule = () => {
   const newSchedule = {
