@@ -28,6 +28,7 @@ describe('Node Server', () => {
 describe('bot schedule prompt', () => {
   const schedule = schedulePrompt.setPromptSchedule();
   const oldSchedule = schedulePrompt.setScheduleHistory('07:00PM', 'Test Prompt');
+  console.log(schedulePrompt.isItTimeToSendPrompt)
 
   it('should queue 1 prompt that day in setupPromptSchedule', () => {
     expect(schedule.time).to.not.be.null;
@@ -38,7 +39,13 @@ describe('bot schedule prompt', () => {
     expect(oldSchedule.prompt).to.not.equal(schedule.prompt);
   });
   it('should send at scheduled time', () => {
-    //TODO
+    const sendPrompt = schedulePrompt.isItTimeToSendPrompt;
+    const scheduledTime1 = {time:'11:00PM'};
+    const scheduledTime2 = {time:'12:00PM'};
+    const currentTime = '11:00PM';
+
+    expect(sendPrompt(scheduledTime1, currentTime)).to.equal.true;
+    expect(sendPrompt(scheduledTime2, currentTime)).to.not.equal.true;
   });
   it('should allow users to change sheduled time', () => {
     //TODO

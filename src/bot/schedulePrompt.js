@@ -29,12 +29,14 @@ const setupCurrentServerTime = () => {
   return moment().utc().format('hh:mmA');
 };
 
-const isItTimeToSendPrompt = (times, prompts) => {
-  if (sheduledTime === currentTime) {
-    ref.child('users').orderByChild('isActive').equalTo(true).on('child_added', (id) => {
-      sendTextMessage(id, prompts)
-    })
+export const isItTimeToSendPrompt = (scheduledPrompt, currentTime) => {
+  if (scheduledPrompt.time === currentTime) {
+    if (process.env.NODE_ENV === 'test') {
+      return true;
+    } else {
+      ref.child('users').orderByChild('isActive').equalTo(true).on('child_added', (id) => {
+        sendTextMessage(id, prompts)
+      })
+    }
   }
 };
-
-console.log(process.env.NODE_ENV)
