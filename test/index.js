@@ -1,16 +1,16 @@
 import http from 'http';
 import { should, expect, assert } from 'chai';
 import { redButton } from '../src/server.js';
-import { ref } from '../src/bot/diary';
 import * as schedulePrompt from '../src/bot/schedulePrompt';
+import { turnOffFirebase } from '../src/bot/diary';
 
 //TODO: make firebase unmount listen for test:watch
 
 //TODO: make sure that bot starts up
 describe('Node Server', () => {
-  after(function (done) {
+  after(done => {
       redButton.close();
-      ref.off();
+      turnOffFirebase();
       done();
   });
   it('should return 200', done => {

@@ -3,7 +3,11 @@ import moment from 'moment';
 import request from 'request';
 import { PAGE_ACCESS_TOKEN, addNewUser } from './receive';
 import { FirebaseDb } from '../modules';
-export const ref = FirebaseDb.ref();
+const ref = FirebaseDb.ref();
+
+export const turnOffFirebase = () => {
+  return ref.once('value', snapshot => process.exit());
+}
 
 import * as schedule from './schedulePrompt';
 

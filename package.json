@@ -8,7 +8,7 @@
     "build": "babel src -d dist",
     "serve": "NODE_ENV=development nodemon src/server.js --exec babel-node",
     "lt": "lt --port 5000 --subdomain tomriddlebot",
-    "test": "mocha --compilers js:babel-register",
+    "test": "NODE_ENV=test mocha --compilers js:babel-register",
     "test:watch": "NODE_ENV=test mocha --watch --compilers js:babel-register"
   },
   "author": "Freddie Iboy <freddieiboy@gmail.com> (http://www.simplycolor.in/)",
