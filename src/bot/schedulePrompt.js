@@ -30,9 +30,11 @@ const setupCurrentServerTime = () => {
 };
 
 const isItTimeToSendPrompt = (times, prompts) => {
-  if (time === currentTime) {
+  if (sheduledTime === currentTime) {
     ref.child('users').orderByChild('isActive').equalTo(true).on('child_added', (id) => {
       sendTextMessage(id, prompts)
     })
   }
 };
+
+console.log(process.env.NODE_ENV)
