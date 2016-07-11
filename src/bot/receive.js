@@ -1,6 +1,7 @@
 import crypto from 'crypto';
 import config from 'config';
-import { receiveTextMsg, welcomeBackMessage, firstWelcomeMessage } from './diary';
+import { receiveTextMsg, welcomeBackMessage, firstWelcomeMessage, sendTextMessage } from './diary';
+import { incomingMessage } from './textReponse';
 import $ from 'jquery';
 import { Firebase, FirebaseDb } from '../modules';
 const ref = FirebaseDb.ref();
@@ -17,7 +18,6 @@ import {
   loginPrompt,
   callSendAPI
 } from './send';
-import { sendTextMessage } from './diary';
 
 const APP_SECRET = (process.env.MESSENGER_APP_SECRET) ?
   process.env.MESSENGER_APP_SECRET :
@@ -170,7 +170,8 @@ export function receivedMessage(event) {
         break;
 
       default:
-        receiveTextMsg(senderID, messageText)
+        incomingMessage(senderID, messageText);
+        // receiveTextMsg(senderID, messageText);
     }
   } else if (messageAttachments) {
     sendTextMessage(senderID, "Oh that's interesting. Adding it to your diary.");
