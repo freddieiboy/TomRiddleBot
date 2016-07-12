@@ -1,13 +1,8 @@
 import crypto from 'crypto';
 import config from 'config';
-import { receiveTextMsg, welcomeBackMessage, firstWelcomeMessage } from './diary';
-import $ from 'jquery';
-import { Firebase, FirebaseDb } from '../modules';
-const ref = FirebaseDb.ref();
-import request from 'request';
-
-const date = new Date();
-const time = date.getTime();
+import { sendTextMessage } from './sendMessages';
+import { incomingMessage } from './textReponse';
+import { initUserCheck } from './userInfo';
 
 import {
   sendImageMessage,
@@ -16,8 +11,7 @@ import {
   sendReceiptMessage,
   loginPrompt,
   callSendAPI
-} from './send';
-import { sendTextMessage } from './diary';
+} from './sendMessages';
 
 const APP_SECRET = (process.env.MESSENGER_APP_SECRET) ?
   process.env.MESSENGER_APP_SECRET :
@@ -36,80 +30,6 @@ if (!(APP_SECRET && VALIDATION_TOKEN && PAGE_ACCESS_TOKEN)) {
   process.exit(1);
 }
 
-export const addNewUserToDB = (id, body) => {
-  // const user = $.parseJSON(body);
-  // const user = JSON.parse(body);
-  ref.child('users').child(id).transaction((currentData) => {
-  // currentData is null for a new user
-  if (currentData === null) {
-    return {
-      firstName: body.first_name,
-      lastName: body.last_name,
-      timezone: body.timezone,
-      gender: body.gender,
-      isActive: true,
-      createdAt: time,
-      profileImageURL: body.profile_pic,
-      id: id
-    };
-  } else {
-    console.log('User already exists!!')
-  }
-}, (error) => {
-  if (error) {
-    console.log('Transaction failed abnormally!', error);
-    // callback(false);
-  } else {
-    console.log('Successfully added user to Firebase.');
-  }
-  });
-}
-
-export const getUserInfoFromFB = (id) => {
-  //This gets user name from FB, adds to Firebase, sends welcome message.
-  //TODO: separate out these functions
-  request({
-    uri: 'https://graph.facebook.com/v2.6/',
-    qs: {
-      id,
-      fields: "first_name,last_name,profile_pic,locale,timezone,gender",
-      access_token: PAGE_ACCESS_TOKEN
-    },
-    method: 'GET',
-
-  }, (error, response, body) => {
-    if (!error && response.statusCode == 200) {
-      console.log(response.statusCode, "Successfully got User FB Info");
-      const user = JSON.parse(body);
-      console.log(user.first_name);
-
-      addNewUserToDB(id, user);
-      firstWelcomeMessage(id, user.first_name);
-    } else {
-      console.error(response.statusCode, "Unable to send message.");
-    }
-  });
-}
-
-const isUserInDatabase = (id) => {
-  checkUserDatabase(id, (exists, data) => {
-    if (exists) {
-      console.log('user exists');
-      welcomeBackMessage(data.id, data.firstName);
-    } else {
-      console.log('user does not exist, adding to database');
-      getUserInfoFromFB(id);
-    }
-  })
-}
-
-const checkUserDatabase = (id, callback) => {
-  ref.child('users').child(id).once('value', (snapshot) => {
-    const exists = (snapshot.val() !== null);
-    const data = snapshot.val();
-    callback(exists, data);
-  });
-}
 
 /*
  * Message Event
@@ -170,7 +90,8 @@ export function receivedMessage(event) {
         break;
 
       default:
-        receiveTextMsg(senderID, messageText)
+        incomingMessage(senderID, messageText);
+        // receiveTextMsg(senderID, messageText);
     }
   } else if (messageAttachments) {
     sendTextMessage(senderID, "Oh that's interesting. Adding it to your diary.");
@@ -287,7 +208,7 @@ export function receivedPostback(event) {
 
   //NOTE: checking if user is in Database
   console.log('Received postback.')
-  isUserInDatabase(senderID);
+  initUserCheck(senderID);
   // console.log(event);
   // sendTextMessage(senderID, "Postback called");
 }
