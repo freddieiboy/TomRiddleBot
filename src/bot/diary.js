@@ -1,4 +1,4 @@
-import { callSendAPI } from './send';
+// import { callSendAPI } from './send';
 import moment from 'moment';
 import request from 'request';
 import { PAGE_ACCESS_TOKEN, addNewUser } from './receive';
@@ -12,24 +12,11 @@ const ref = FirebaseDb.ref();
 //TODO: allow users to change when tom messages them.
 
 // RECEIVE TEXT MESSAGE
-export const receiveTextMsg = (id, text) => {
-  setTimeout(() => {
-    sendTextMessage(id, 'Thanks, saving it your diary.');
-  }, 3000)
-}
-
-export const welcomeBackMessage = (recipientId, name) => {
-  const messageText = 'Welcome back, ' + name + '.'
-
-  sendTextMessage(recipientId, messageText);
-}
-
-export const firstWelcomeMessage = (recipientId, name) => {
-  console.log('this is from welcome message', recipientId);
-  const messageText = 'Welcome to your conversational diary, ' + name + '. My name is Tom Riddle.'
-
-  sendTextMessage(recipientId, messageText);
-}
+// export const receiveTextMsg = (id, text) => {
+//   setTimeout(() => {
+//     sendTextMessage(id, 'Thanks, saving it your diary.');
+//   }, 3000)
+// }
 
 const defaultTimes = ['11:15PM', '11:25PM', '11:35PM'];
 const userTimes = [];
@@ -48,17 +35,17 @@ let userIdList = [];
 let userTimezone = 0;
 
 // TEMPORARY!!! set up userIdList from isActive users on Firebase.
-const stateSetupUserList = () => {
-  ref.child('users').orderByChild('isActive').equalTo(true).on('child_added', (snapshot) => {
-    const id = snapshot.val().id;
-    userIdList.push(id);
-  });
-}
-stateSetupUserList();
+// const stateSetupUserList = () => {
+//   ref.child('users').orderByChild('isActive').equalTo(true).on('child_added', (snapshot) => {
+//     const id = snapshot.val().id;
+//     userIdList.push(id);
+//   });
+// }
+// stateSetupUserList();
 
-const getCurrentTime = (userTimezone) => {
-  return moment().utc().utcOffset(userTimezone).format('hh:mmA');
-}
+// const getCurrentTime = (userTimezone) => {
+//   return moment().utc().utcOffset(userTimezone).format('hh:mmA');
+// }
 
 // console.log(getCurrentTime(userTimezone));
 
@@ -87,22 +74,8 @@ export const setupDefaultScheduleMsg = (defaultTimes, userIdList, botLines, curr
 }
 
 // Run setupDefaultScheduleMsg every 60 seconds.
-if (process.env.NODE_ENV !== 'test') {
-  setInterval(() => {
-    setupDefaultScheduleMsg(defaultTimes, userIdList, botLines, getCurrentTime(0));
-  }, 60000);
-}
-
-// SEND TEXT MESSAGE
-export const sendTextMessage = (recipientId, messageText) => {
-  var messageData = {
-    recipient: {
-      id: recipientId
-    },
-    message: {
-      text: messageText
-    }
-  };
-
-  callSendAPI(messageData);
-}
+// if (process.env.NODE_ENV !== 'test') {
+//   setInterval(() => {
+//     setupDefaultScheduleMsg(defaultTimes, userIdList, botLines, getCurrentTime(0));
+//   }, 60000);
+// }

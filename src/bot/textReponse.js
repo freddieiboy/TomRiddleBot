@@ -1,4 +1,4 @@
-import { callSendAPI } from './send';
+import { callSendAPI } from './sendMessages';
 
 // Create stopwatch !!!
 
@@ -32,17 +32,12 @@ export const incomingMessage = (id, text) => {
   currentMsgQueue = [...currentMsgQueue, text]
   console.log(currentMsgQueue)
   if (counting === 0) {
-    // stopWatch.start(() => sendReply(id, 'Saved to your diary.'));
-    stopWatch.start(() => console.log("Thanks for the reply, I'll ask again tomorrow."));
+    stopWatch.start(() => sendReply(id, "Thanks, I'll check back tomorrow!"));
+    // stopWatch.start(() => console.log("Thanks for the reply, I'll ask again tomorrow."));
   } else {
     stopWatch.reset();
   }
 }
-
-
-incomingMessage(1, 'Hey');
-setTimeout(() => incomingMessage(1, 'Another hey!'), 2000);
-setTimeout(() => incomingMessage(1, 'Final hey!'), 4000);
 
 export const sendReply = (id, text) => {
   var messageData = {

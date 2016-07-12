@@ -79,23 +79,26 @@ describe('bot text response', () => {
   });
   context('response logic', () => {
     it('should respond to 5 keywords and immediately ask questions.', () => {
-      
+
     });
   })
 });
 
 //TODO: save journal entry for users when they sign in.
-// describe('saving journal entries', () => {
-//   it('should save a journal entry when a user sends an entry', () => {
-//
-//   });
-//   it('should batch journal entries by date.', () => {
-//
-//   });
-//   it('should save users ID, createdTime, and createdDate', () => {
-//
-//   })
-// });
+describe('saving retrieving data', () => {
+  it('should check if user is in firebase', () => {
+    
+  });
+  // it('should save a journal entry when a user sends an entry', () => {
+  //
+  // });
+  // it('should batch journal entries by date.', () => {
+  //
+  // });
+  // it('should save users ID, createdTime, and createdDate', () => {
+  //
+  // })
+});
 
 //TODO: add redux for state management.
 // describe('state tree', () => {
