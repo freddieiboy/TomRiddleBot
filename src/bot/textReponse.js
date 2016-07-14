@@ -39,8 +39,10 @@ export const incomingMessage = (id, text) => {
   }
 }
 
+console.log(callSendAPI)
+
 export const sendReply = (id, text) => {
-  var messageData = {
+  const messageData = {
     recipient: {
       id: id
     },
@@ -52,3 +54,5 @@ export const sendReply = (id, text) => {
   callSendAPI(messageData);
   return messageData
 }
+
+incomingMessage(1, 'test');

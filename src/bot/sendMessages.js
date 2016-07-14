@@ -1,16 +1,6 @@
 import request from 'request'
 import { PAGE_ACCESS_TOKEN } from './receive';
 
-export {
-  sendTextMessage,
-  sendImageMessage,
-  sendButtonMessage,
-  loginPrompt,
-  sendGenericMessage,
-  sendReceiptMessage,
-  callSendAPI
-}
-
 // MAIN SEND TEXT MESSAGE FUNCTION
 const sendTextMessage = (recipientId, messageText) => {
   var messageData = {
@@ -249,4 +239,14 @@ const callSendAPI = (messageData) => {
       // console.error(error);
     }
   });
+}
+
+export {
+  sendTextMessage,
+  sendImageMessage,
+  sendButtonMessage,
+  loginPrompt,
+  sendGenericMessage,
+  sendReceiptMessage,
+  callSendAPI
 }
