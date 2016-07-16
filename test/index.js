@@ -19,7 +19,7 @@ describe('Node Server', () => {
     });
   });
   it('should have correct server timezone of UTC', () => {
-    const time = schedulePrompt.setCurrentServerTime;
+    const time = schedulePrompt.currentServerTime;
     expect(moment().utcOffset(time())._offset).to.equal(-0)
   });
   it('should successfully send msgs', () => {
@@ -33,7 +33,7 @@ describe('Node Server', () => {
 //TODO: refractor schedule for one time a day. Make tests pass.
 describe('bot schedule prompt', () => {
   const schedule = schedulePrompt.setPromptSchedule();
-  const oldSchedule = schedulePrompt.setScheduleHistory('07:00PM', 'Test Prompt');
+  const oldSchedule = schedulePrompt.setScheduleHistory('08:00PM', 'Test Prompt');
 
   it('should queue 1 prompt that day in setupPromptSchedule', () => {
     expect(schedule.time).to.not.be.null;
@@ -51,6 +51,14 @@ describe('bot schedule prompt', () => {
 
     expect(sendPrompt(scheduledTime1, currentTime)).to.equal.true;
     expect(sendPrompt(scheduledTime2, currentTime)).to.not.equal.true;
+  });
+  it('should run every 60 seconds to check for isItTimeToSendPrompt', () => {
+    const runTimeInterval = schedulePrompt.runTimeInterval(1);
+
+    expect(runTimeInterval).to.equal(true);
+  });
+  it('should map every user and check if its ready to send', () => {
+
   });
   // it('should allow users to change sheduled time', () => {
   //   //TODO
@@ -87,7 +95,7 @@ describe('bot text response', () => {
 //TODO: save journal entry for users when they sign in.
 describe('saving retrieving data', () => {
   it('should check if user is in firebase', () => {
-    
+
   });
   // it('should save a journal entry when a user sends an entry', () => {
   //
@@ -101,8 +109,11 @@ describe('saving retrieving data', () => {
 });
 
 //TODO: add redux for state management.
-// describe('state tree', () => {
-//   it('should hydrate some content on redux every few hours', () => {
-//
-//   })
-// });
+describe('state tree', () => {
+  it('should hydrate some content on redux every few hours', () => {
+
+  });
+  it('should hydrate when a new users is added', () => {
+
+  });
+});

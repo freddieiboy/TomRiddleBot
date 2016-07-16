@@ -9,13 +9,14 @@ const temporaryID = 131722383924259;
 
 
 // setup !!!
-function runTimeInterval() {
+export const runTimeInterval = (intervalTime) => {
+  if (process.env.NODE_ENV) return true;
   setInterval(() => {
     isItTimeToSendPrompt(setPromptSchedule(), currentServerTime());
-  }, 60000)
+  }, intervalTime)
 };
 
-runTimeInterval();
+runTimeInterval(60000);
 
 // ---
 
@@ -41,8 +42,8 @@ export const setScheduleHistory = (time, prompt) => {
   return oldSchedule;
 }
 
+
 export const isItTimeToSendPrompt = (scheduledPrompt, currentTime) => {
-  console.log(currentTime);
   if (scheduledPrompt.time === currentTime) {
     if (process.env.NODE_ENV === 'test') {
       return true;
