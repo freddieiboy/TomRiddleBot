@@ -2,10 +2,24 @@ import moment from 'moment';
 import { FirebaseDb } from '../modules';
 const ref = FirebaseDb.ref();
 import { sendTextMessage } from './sendMessages';
+import { store } from '../store/users';
 
 let allBotPrompts = ['Writing is helpful, what did you do today?.'];
 let allBotTimes = ['07:00PM'];
 const temporaryID = 131722383924259;
+
+store.subscribe(() =>
+  console.log(store.getState())
+)
+
+// The only way to mutate the internal state is to dispatch an action.
+// The actions can be serialized, logged or stored and later replayed.
+store.dispatch({ type: 'INCREMENT' })
+// 1
+store.dispatch({ type: 'INCREMENT' })
+// 2
+store.dispatch({ type: 'DECREMENT' })
+// 1
 
 
 // setup !!!
