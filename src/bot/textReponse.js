@@ -32,6 +32,10 @@ let oldMsgQueue = [];
 export const incomingMessage = (id, text) => {
   quickUserCheck(id)
   if (counting === 0) {
+    
+    //TODO if there are multiple msgs received, multiple timers are created.
+    //investigate why this bug occurs
+
     // stopWatch.start(() => sendReply(id, "Thanks, I'll check back tomorrow."));
     // stopWatch.start(() => console.log("Thanks for the reply, I'll ask again tomorrow."));
   } else {
