@@ -8,16 +8,6 @@ let allBotPrompts = ['Writing is helpful, what did you do today?.'];
 let allBotTimes = ['07:00PM'];
 const temporaryID = 131722383924259;
 
-let storeUsers = [];
-
-store.subscribe(() =>
-  storeUsers = store.getState().users
-)
-
-// setTimeout(() => {
-//   store.dispatch(setHydrateUsers(['yes']))
-// }, 1000)
-
 // start isItTimeToSendPrompt every 60 seconds !!!
 export const runTimeInterval = (intervalTime) => {
   if (process.env.NODE_ENV) return true;

@@ -1,9 +1,28 @@
 import request from 'request';
 import { Firebase, FirebaseDb } from '../modules';
+import { store, setHydrateUsers } from '../store/users';
 const ref = FirebaseDb.ref();
 
 const date = new Date();
 const time = date.getTime();
+
+let storeUsers = [];
+
+store.subscribe(() =>
+  storeUsers = store.getState().users
+)
+
+export const hydrateUsers = () => {
+  ref.child('users').orderByChild('isActive').equalTo(true).on('child_added', (snapshot) => {
+    const user = snapshot.val();
+    const userObject = {
+      id: user.id,
+      firstName: user.firstName,
+      gender: user.gender
+    }
+    return store.dispatch(setHydrateUsers(userObject))
+  })
+}
 
 export const initUserCheck = (id) => {
   checkUserDatabase(id, (exists, data) => {

@@ -3,6 +3,7 @@ import { should, expect, assert } from 'chai';
 import { redButton } from '../src/server.js';
 import * as schedulePrompt from '../src/bot/schedulePrompt';
 import * as textReponse from '../src/bot/textReponse';
+import * as userInfo from '../src/bot/userInfo';
 import moment from 'moment';
 
 //TODO: make sure that bot starts up
@@ -111,7 +112,9 @@ describe('saving retrieving data', () => {
 //TODO: add redux for state management.
 describe('state tree', () => {
   it('should hydrate some content on redux every few hours', () => {
-
+    const hydrateUsers = userInfo.hydrateUsers;
+    console.log(hydrateUsers())
+    // expect(hydrateUsers()).to.equal(true);
   });
   it('should hydrate when a new users is added', () => {
 
