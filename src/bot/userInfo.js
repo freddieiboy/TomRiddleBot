@@ -2,6 +2,7 @@ import request from 'request';
 import { Firebase, FirebaseDb } from '../modules';
 import { store, setHydrateUsers } from '../store/users';
 import { PAGE_ACCESS_TOKEN } from './receive';
+import { sendTextMessage } from './sendMessages';
 
 const ref = FirebaseDb.ref();
 
