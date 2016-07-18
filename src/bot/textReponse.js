@@ -1,4 +1,5 @@
 import { callSendAPI } from './sendMessages';
+import { quickUserCheck } from './userInfo';
 
 // Create stopwatch !!!
 
@@ -29,7 +30,7 @@ let currentMsgQueue = [];
 let oldMsgQueue = [];
 
 export const incomingMessage = (id, text) => {
-  //currentMsgQueue = [...currentMsgQueue, text]
+  quickUserCheck(id)
   if (counting === 0) {
     stopWatch.start(() => sendReply(id, "Thanks, I'll check back tomorrow."));
     // stopWatch.start(() => console.log("Thanks for the reply, I'll ask again tomorrow."));
