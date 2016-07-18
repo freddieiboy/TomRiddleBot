@@ -24,12 +24,24 @@ export const hydrateUsers = () => {
   })
 }
 
+// Checks when user presses 'get started' but user isn't always presented // with this check
+
 export const initUserCheck = (id) => {
   checkUserDatabase(id, (exists, data) => {
     if (exists) {
       console.log('user exists');
       welcomeBackMessage(data.id, data.firstName);
     } else {
+      console.log('user does not exist, adding to database');
+      getUserInfoFromFB(id);
+    }
+  })
+}
+
+// Checks on every incoming message
+export const quickUserCheck = (id) => {
+  checkUserDatabase(id, (exists, data) => {
+    if (!exists) {
       console.log('user does not exist, adding to database');
       getUserInfoFromFB(id);
     }
