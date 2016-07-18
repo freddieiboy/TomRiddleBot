@@ -2,13 +2,26 @@ import moment from 'moment';
 import { FirebaseDb } from '../modules';
 const ref = FirebaseDb.ref();
 import { sendTextMessage } from './sendMessages';
+import { store, setHydrateUsers } from '../store/users';
 
-let allBotPrompts = ['Write in your diary right now.'];
-let allBotTimes = ['12:00PM'];
+let allBotPrompts = ['Writing is helpful, what did you do today?.'];
+let allBotTimes = ['07:00PM'];
 const temporaryID = 131722383924259;
 
-export const setCurrentServerTime = () => {
-  return moment().utc().format('hh:mmA');
+// start isItTimeToSendPrompt every 60 seconds !!!
+export const runTimeInterval = (intervalTime) => {
+  if (process.env.NODE_ENV) return true;
+  setInterval(() => {
+    isItTimeToSendPrompt(setPromptSchedule(), currentServerTime());
+  }, intervalTime)
+};
+
+runTimeInterval(60000);
+
+// ---
+
+export const currentServerTime = (userZone) => {
+  return moment().utc(userZone).format('hh:mmA');
 };
 
 export const setPromptSchedule = () => {
@@ -28,6 +41,7 @@ export const setScheduleHistory = (time, prompt) => {
 
   return oldSchedule;
 }
+
 
 export const isItTimeToSendPrompt = (scheduledPrompt, currentTime) => {
   if (scheduledPrompt.time === currentTime) {

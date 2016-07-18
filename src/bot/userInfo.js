@@ -1,9 +1,30 @@
 import request from 'request';
 import { Firebase, FirebaseDb } from '../modules';
+import { store, setHydrateUsers } from '../store/users';
 const ref = FirebaseDb.ref();
 
 const date = new Date();
 const time = date.getTime();
+
+let storeUsers = [];
+
+store.subscribe(() =>
+  storeUsers = store.getState().users
+)
+
+export const hydrateUsers = () => {
+  ref.child('users').orderByChild('isActive').equalTo(true).on('child_added', (snapshot) => {
+    const user = snapshot.val();
+    const userObject = {
+      id: user.id,
+      firstName: user.firstName,
+      gender: user.gender
+    }
+    return store.dispatch(setHydrateUsers(userObject))
+  })
+}
+
+// Checks when user presses 'get started' but user isn't always presented // with this check
 
 export const initUserCheck = (id) => {
   checkUserDatabase(id, (exists, data) => {
@@ -11,6 +32,16 @@ export const initUserCheck = (id) => {
       console.log('user exists');
       welcomeBackMessage(data.id, data.firstName);
     } else {
+      console.log('user does not exist, adding to database');
+      getUserInfoFromFB(id);
+    }
+  })
+}
+
+// Checks on every incoming message
+export const quickUserCheck = (id) => {
+  checkUserDatabase(id, (exists, data) => {
+    if (!exists) {
       console.log('user does not exist, adding to database');
       getUserInfoFromFB(id);
     }
