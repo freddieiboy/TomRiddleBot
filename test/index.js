@@ -113,8 +113,7 @@ describe('saving retrieving data', () => {
 describe('state tree', () => {
   it('should hydrate some content on redux every few hours', () => {
     const hydrateUsers = userInfo.hydrateUsers;
-    console.log(hydrateUsers())
-    // expect(hydrateUsers()).to.equal(true);
+    // TODO; find a simple way to test this
   });
   it('should hydrate when a new users is added', () => {
 
