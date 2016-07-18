@@ -13,7 +13,7 @@ export class timer {
     const timer = setInterval(() => {
       counting += 1
       console.log(counting);
-      if (counting === 3) {
+      if (counting === 10) {
         clearInterval(timer)
         callback();
       }
