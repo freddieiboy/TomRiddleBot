@@ -23,12 +23,12 @@ describe('Node Server', () => {
     const time = schedulePrompt.currentServerTime;
     expect(moment().utcOffset(time())._offset).to.equal(-0)
   });
-  it('should successfully send msgs', () => {
-    //TODO
-  });
-  it('should successfully receive msgs', () => {
-    //TODO
-  });
+  // it('should successfully send msgs', () => {
+  //   //TODO
+  // });
+  // it('should successfully receive msgs', () => {
+  //   //TODO
+  // });
 });
 
 //TODO: refractor schedule for one time a day. Make tests pass.
@@ -86,18 +86,18 @@ describe('bot text response', () => {
 
     expect(sendReply).to.have.deep.property('message.text', 'hey')
   });
-  context('response logic', () => {
-    it('should respond to 5 keywords and immediately ask questions.', () => {
-
-    });
-  })
+  // context('response logic', () => {
+  //   it('should respond to 5 keywords and immediately ask questions.', () => {
+  //
+  //   });
+  // })
 });
 
 //TODO: save journal entry for users when they sign in.
-describe('saving retrieving data', () => {
-  it('should check if user is in firebase', () => {
-
-  });
+// describe('saving retrieving data', () => {
+//   it('should check if user is in firebase', () => {
+//
+//   });
   // it('should save a journal entry when a user sends an entry', () => {
   //
   // });
@@ -107,7 +107,7 @@ describe('saving retrieving data', () => {
   // it('should save users ID, createdTime, and createdDate', () => {
   //
   // })
-});
+// });
 
 //TODO: add redux for state management.
 describe('state tree', () => {
@@ -115,7 +115,7 @@ describe('state tree', () => {
     const hydrateUsers = userInfo.hydrateUsers;
     // TODO; find a simple way to test this
   });
-  it('should hydrate when a new users is added', () => {
-
-  });
+  // it('should hydrate when a new users is added', () => {
+  //
+  // });
 });
