@@ -2,27 +2,23 @@ import moment from 'moment';
 import { FirebaseDb } from '../modules';
 const ref = FirebaseDb.ref();
 import { sendTextMessage } from './sendMessages';
-import { store } from '../store/users';
+import { store, setHydrateUsers } from '../store/users';
 
 let allBotPrompts = ['Writing is helpful, what did you do today?.'];
 let allBotTimes = ['07:00PM'];
 const temporaryID = 131722383924259;
 
+let storeUsers = [];
+
 store.subscribe(() =>
-  console.log(store.getState())
+  storeUsers = store.getState().users
 )
 
-// The only way to mutate the internal state is to dispatch an action.
-// The actions can be serialized, logged or stored and later replayed.
-store.dispatch({ type: 'INCREMENT' })
-// 1
-store.dispatch({ type: 'INCREMENT' })
-// 2
-store.dispatch({ type: 'DECREMENT' })
-// 1
+// setTimeout(() => {
+//   store.dispatch(setHydrateUsers(['yes']))
+// }, 1000)
 
-
-// setup !!!
+// start isItTimeToSendPrompt every 60 seconds !!!
 export const runTimeInterval = (intervalTime) => {
   if (process.env.NODE_ENV) return true;
   setInterval(() => {

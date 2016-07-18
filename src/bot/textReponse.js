@@ -52,4 +52,4 @@ export const sendReply = (id, text) => {
   return messageData
 }
 
-incomingMessage(1, 'test');
+// incomingMessage(1, 'test');

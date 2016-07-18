@@ -1,14 +1,27 @@
 import { createStore } from 'redux'
 
-function counter(state = 0, action) {
-  switch (action.type) {
-  case 'INCREMENT':
-    return state + 1
-  case 'DECREMENT':
-    return state - 1
-  default:
-    return state
+export const setHydrateUsers = (users) => {
+  return {
+    type: 'HYDRATE_USERS',
+    users: users
   }
 }
 
-export let store = createStore(counter)
+const initialState = {
+  users: [],
+  scheduledPrompt: {}
+};
+
+function users(state = initialState, action) {
+  switch (action.type) {
+    case 'HYDRATE_USERS':
+      return {
+        ...state,
+        users: state.users.concat(action.users)
+      }
+    default:
+      return state
+    }
+}
+
+export let store = createStore(users)
