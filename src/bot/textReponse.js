@@ -31,8 +31,8 @@ let oldMsgQueue = [];
 export const incomingMessage = (id, text) => {
   currentMsgQueue = [...currentMsgQueue, text]
   if (counting === 0) {
-    // stopWatch.start(() => sendReply(id, "Thanks, I'll check back tomorrow!"));
-    stopWatch.start(() => console.log("Thanks for the reply, I'll ask again tomorrow."));
+    stopWatch.start(() => sendReply(id, "Thanks, I'll check back tomorrow."));
+    // stopWatch.start(() => console.log("Thanks for the reply, I'll ask again tomorrow."));
   } else {
     stopWatch.reset();
   }
