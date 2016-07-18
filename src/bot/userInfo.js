@@ -21,7 +21,8 @@ export const hydrateUsers = () => {
     const userObject = {
       id: user.id,
       firstName: user.firstName,
-      gender: user.gender
+      gender: user.gender,
+      timeZone: user.timeZone
     }
     return store.dispatch(setHydrateUsers(userObject))
   })
