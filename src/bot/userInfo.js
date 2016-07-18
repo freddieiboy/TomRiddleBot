@@ -1,6 +1,8 @@
 import request from 'request';
 import { Firebase, FirebaseDb } from '../modules';
 import { store, setHydrateUsers } from '../store/users';
+import { PAGE_ACCESS_TOKEN } from './receive';
+
 const ref = FirebaseDb.ref();
 
 const date = new Date();
